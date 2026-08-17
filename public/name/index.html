@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Name — HUMANE</title>
+    <link rel="stylesheet" href="/css/app.css" />
+  </head>
+  <body data-page="name">
+    <div class="desk">
+      <header class="top">
+        <a class="mark" href="/">HUMANE</a>
+        <nav>
+          <a href="/play">Play</a>
+          <a href="/board">Board</a>
+          <a href="/name" aria-current="page">Name</a>
+        </nav>
+      </header>
+      <h1>Take a name.</h1>
+      <p class="lede">Three to sixteen characters. Letters, numbers, underscore. First write wins. No mail. No password. The name is the whole profile.</p>
+      <form class="claim" id="claim">
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" maxlength="16" autocomplete="username" spellcheck="false" required />
+        <p class="status" id="status">Play first if you want. The streak waits for a name.</p>
+        <button class="verb" type="submit">Claim</button>
+      </form>
+    </div>
+    <script src="/js/app.js" defer></script>
+  </body>
+</html>

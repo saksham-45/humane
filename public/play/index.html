@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Play — HUMANE</title>
+    <link rel="stylesheet" href="/css/app.css" />
+  </head>
+  <body data-page="play">
+    <div class="desk">
+      <header class="top">
+        <a class="mark" href="/">HUMANE</a>
+        <nav>
+          <a href="/play" aria-current="page">Play</a>
+          <a href="/board">Board</a>
+          <a href="/name">Name</a>
+        </nav>
+      </header>
+      <p class="stamp-topic" id="topic"></p>
+      <p class="meta" id="who"></p>
+      <div class="empty" hidden></div>
+      <div class="cut-stage" data-stacked="0">
+        <button class="col" data-side="left" type="button">
+          <span class="col-kicker">1 · left</span>
+          <span class="col-body"></span>
+        </button>
+        <div class="cut" aria-hidden="true">
+          <span class="stamp"></span>
+        </div>
+        <button class="col" data-side="right" type="button">
+          <span class="col-kicker">2 · right</span>
+          <span class="col-body"></span>
+        </button>
+      </div>
+      <p class="hint">Press a column. 1 / 2 or arrows. The cut moves on the press.</p>
+      <aside class="reveal" hidden>
+        <p class="tell"></p>
+        <p class="facts"></p>
+        <div class="actions">
+          <button class="ghost" id="share" type="button">Copy the card</button>
+          <a class="ghost" href="/board">Board</a>
+          <a class="ghost" href="/name">Claim a name</a>
+        </div>
+        <img class="share-card" id="card" alt="Share card" hidden />
+      </aside>
+    </div>
+    <script src="/js/app.js" defer></script>
+  </body>
+</html>

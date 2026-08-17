@@ -1,0 +1,47 @@
+/** Case-insensitive reserved usernames. Keep this list boring and mechanical. */
+export const RESERVED = new Set(
+  [
+    "admin",
+    "humane",
+    "api",
+    "null",
+    "undefined",
+    "mod",
+    "moderator",
+    "staff",
+    "root",
+    "system",
+    "support",
+    "help",
+    "about",
+    "board",
+    "play",
+    "name",
+    "og",
+    "www",
+    "me",
+    "you",
+    "guest",
+    "anonymous",
+    "anon",
+    "official",
+    "nigger",
+    "nigga",
+    "faggot",
+    "fag",
+    "kike",
+    "spic",
+    "chink",
+    "retard",
+    "tranny",
+    "slut",
+    "whore",
+    "rape",
+    "nazi",
+    "hitler",
+  ].map((s) => s.toLowerCase()),
+);
+
+export function isReserved(norm: string): boolean {
+  return RESERVED.has(norm);
+}

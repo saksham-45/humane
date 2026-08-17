@@ -16,7 +16,7 @@ Labels live only in D1 / the Worker bundle. `GET /api/today` must never include 
 
 ## Motion
 
-The play cut is a critically damped spring on press (`src/client/cut.ts`, `src/client/spring.ts`). Do not replace it with a CSS fade except under `prefers-reduced-motion`. After the pick, the cut settles so both texts stay readable. Cards get a small Human/AI mark and the same streak line. Never stamp SIGNAL or Blood; verdict copy is `src/lib/reveal.ts`.
+The play cut is a critically damped spring on press (`src/client/cut.ts`, `src/client/spring.ts`). Do not replace it with a CSS fade except under `prefers-reduced-motion`. After settle it is only a thin center gutter (`CUT_SETTLE = 0` in `src/lib/cut-layout.ts`) — never a slab over a card. Cards get a small Human/AI mark and the same streak line. Never stamp SIGNAL or Blood; verdict copy is `src/lib/reveal.ts`.
 
 ## Maintaining this file
 

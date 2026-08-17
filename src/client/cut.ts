@@ -1,68 +1,65 @@
 import { Spring } from "./spring.ts";
 
-export type Cover = -1 | 0 | 1;
-export type StampWord = "HUMAN" | "SIGNAL" | "";
-
 export interface CutOpts {
   stage: HTMLElement;
   cut: HTMLElement;
-  stamp: HTMLElement;
   reduced: boolean;
 }
 
 /**
- * Physical cut. Cover is a spring on [-1, 1]: 0 center, -1 left/top, +1 right/bottom.
- * Retargeting keeps position and velocity. Never disables input.
+ * Thin torn cut. Press slides it toward the chosen side on a critically
+ * damped spring, then settle() parks it so both cards stay readable.
+ * Never expands into a cover. Interruptible: retarget keeps x,v.
  */
 export class CutMotion {
-  private readonly cover: Spring;
-  private readonly stampSpring: Spring;
+  private readonly pos: Spring;
+  private readonly fat: Spring;
   private readonly stage: HTMLElement;
   private readonly cut: HTMLElement;
-  private readonly stamp: HTMLElement;
   private readonly reduced: boolean;
   private raf = 0;
   private last = 0;
   private stacked = false;
-  private word: StampWord = "";
 
   constructor(opts: CutOpts) {
     this.stage = opts.stage;
     this.cut = opts.cut;
-    this.stamp = opts.stamp;
     this.reduced = opts.reduced;
-    this.cover = new Spring(0, 0.4, 1);
-    this.stampSpring = new Spring(0, 0.32, 1);
+    this.pos = new Spring(0.5, 0.4, 1);
+    this.fat = new Spring(0, 0.32, 1);
     this.stacked = window.matchMedia("(max-width: 720px)").matches;
     this.paint();
   }
 
   get value(): number {
-    return this.cover.x;
+    return this.pos.x;
   }
 
-  /** Press: retarget immediately. Does not wait for release or settle. */
+  /** Press: slide toward that side immediately. Does not wait for release. */
   press(side: "left" | "right"): void {
-    const next: Cover = side === "left" ? -1 : 1;
+    const next = side === "left" ? 0.4 : 0.6;
     if (this.reduced) {
-      this.cover.snap(next);
+      this.pos.snap(next);
+      this.fat.snap(1);
       this.paint();
       return;
     }
-    this.cover.setTarget(next);
+    this.pos.setTarget(next);
+    this.fat.setTarget(1);
     this.kick();
   }
 
-  reveal(word: StampWord): void {
-    this.word = word;
-    this.stamp.textContent = word;
-    this.stamp.dataset.word = word.toLowerCase();
+  /** After the pick lands: keep the bias, shrink so both texts stay clear. */
+  settle(): void {
+    const toward = this.pos.target < 0.5 ? 0.46 : this.pos.target > 0.5 ? 0.54 : 0.5;
     if (this.reduced) {
-      this.stampSpring.snap(1);
+      this.pos.snap(toward);
+      this.fat.snap(0);
       this.paint();
       return;
     }
-    this.stampSpring.setTarget(1);
+    this.pos.setTarget(toward);
+    this.fat.setTarget(0);
     this.kick();
   }
 
@@ -77,10 +74,10 @@ export class CutMotion {
     const loop = (now: number) => {
       const dt = Math.min(0.032, (now - this.last) / 1000);
       this.last = now;
-      this.cover.step(dt);
-      this.stampSpring.step(dt);
+      this.pos.step(dt);
+      this.fat.step(dt);
       this.paint();
-      if (this.cover.settled && this.stampSpring.settled) {
+      if (this.pos.settled && this.fat.settled) {
         this.raf = 0;
         return;
       }
@@ -94,31 +91,21 @@ export class CutMotion {
     const W = box.width || this.stage.clientWidth;
     const H = box.height || this.stage.clientHeight;
     const rest = this.stacked ? 28 : 40;
-    const t = this.cover.x;
+    const width = rest + this.fat.x * 18;
     if (this.stacked) {
-      const mid = H / 2;
-      const width = rest + Math.abs(t) * (H / 2 - rest);
-      const top = t >= 0 ? mid - rest / 2 : mid - rest / 2 - Math.abs(t) * (H / 2 - rest / 2);
+      const top = this.pos.x * H - width / 2;
       this.cut.style.left = "0";
       this.cut.style.width = "100%";
       this.cut.style.top = `${top}px`;
       this.cut.style.height = `${width}px`;
     } else {
-      const mid = W / 2;
-      const width = rest + Math.abs(t) * (W / 2 - rest);
-      const left = t >= 0 ? mid - rest / 2 : mid - rest / 2 - Math.abs(t) * (W / 2 - rest / 2);
+      const left = this.pos.x * W - width / 2;
       this.cut.style.top = "0";
       this.cut.style.height = "100%";
       this.cut.style.left = `${left}px`;
       this.cut.style.width = `${width}px`;
     }
-    this.stage.dataset.cover = t < -0.2 ? "left" : t > 0.2 ? "right" : "center";
-    const s = this.stampSpring.x;
-    this.stamp.style.opacity = this.reduced ? String(s) : "1";
-    const press = this.reduced ? 1 : 0.86 + 0.14 * s;
-    const slide = this.reduced ? 0 : (1 - s) * (this.stacked ? 18 : 28);
-    const axis = this.stacked ? `translate(-50%, ${slide}px) scale(${press})` : `translate(${slide}px, -50%) scale(${press})`;
-    this.stamp.style.transform = axis;
-    this.stamp.style.visibility = this.word ? "visible" : "hidden";
+    const t = this.pos.x;
+    this.stage.dataset.cover = t < 0.45 ? "left" : t > 0.55 ? "right" : "center";
   }
 }

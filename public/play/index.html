@@ -21,19 +21,30 @@
       <div class="empty" hidden></div>
       <div class="cut-stage" data-stacked="0">
         <button class="col" data-side="left" type="button">
-          <span class="col-kicker">1 · left</span>
+          <span class="col-head">
+            <span class="col-kicker">1 · left</span>
+            <span class="col-result" hidden>
+              <span class="col-label"></span>
+              <span class="col-score"></span>
+            </span>
+          </span>
           <span class="col-body"></span>
         </button>
-        <div class="cut" aria-hidden="true">
-          <span class="stamp"></span>
-        </div>
+        <div class="cut" aria-hidden="true"></div>
         <button class="col" data-side="right" type="button">
-          <span class="col-kicker">2 · right</span>
+          <span class="col-head">
+            <span class="col-kicker">2 · right</span>
+            <span class="col-result" hidden>
+              <span class="col-label"></span>
+              <span class="col-score"></span>
+            </span>
+          </span>
           <span class="col-body"></span>
         </button>
       </div>
       <p class="hint">Press a column. 1 / 2 or arrows. The cut moves on the press.</p>
       <aside class="reveal" hidden>
+        <p class="verdict"></p>
         <p class="tell"></p>
         <p class="facts"></p>
         <div class="actions">

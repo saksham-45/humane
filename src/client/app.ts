@@ -1,3 +1,4 @@
+import { scoreLine, verdictLine } from "../lib/reveal.ts";
 import { CutMotion } from "./cut.ts";
 
 type Side = "left" | "right";
@@ -105,8 +106,7 @@ async function play(): Promise<void> {
 
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const cutEl = $(".cut") as HTMLElement;
-  const stampEl = $(".stamp") as HTMLElement;
-  const motion = new CutMotion({ stage, cut: cutEl, stamp: stampEl, reduced });
+  const motion = new CutMotion({ stage, cut: cutEl, reduced });
   const stackedMq = window.matchMedia("(max-width: 720px)");
   const syncStack = () => {
     stage.dataset.stacked = stackedMq.matches ? "1" : "0";
@@ -129,21 +129,19 @@ async function play(): Promise<void> {
     inFlight = false;
     if (out.error && out.error !== "already_guessed") {
       showReveal({
-        title: out.message ?? "The desk jammed.",
-        body: "",
+        verdict: out.message ?? "The desk jammed.",
       });
       return;
     }
     done = true;
-    const pickedHuman = out.humanSide === side;
-    motion.reveal(pickedHuman ? "HUMAN" : "SIGNAL");
+    motion.settle();
     const streak = out.streak ?? 0;
+    labelCards(out.humanSide, out.correct, streak);
     showReveal({
-      title: out.correct ? "Blood." : "Signal.",
-      body: out.tell,
+      verdict: verdictLine(out.correct),
+      tell: out.tell,
       facts: `${out.source} · ${out.model}`,
       streak,
-      longest: out.longest ?? streak,
       persisted: !!out.persisted,
       date: today.date,
       already: !!out.already,
@@ -171,29 +169,46 @@ async function play(): Promise<void> {
     if (prior.humanSide) {
       const picked: Side = prior.correct ? prior.humanSide : prior.humanSide === "left" ? "right" : "left";
       motion.press(picked);
-      motion.reveal(prior.correct ? "HUMAN" : "SIGNAL");
+      motion.settle();
+      labelCards(prior.humanSide, prior.correct, prior.streak ?? me.streak);
       showReveal({
-        title: prior.already ? "Already cut." : prior.correct ? "Blood." : "Signal.",
-        body: prior.already
-          ? `${prior.tell} One official guess a day.`
-          : prior.tell,
-        facts: `${prior.source} · ${prior.model}`,
+        verdict: verdictLine(prior.correct),
+        tell: prior.tell,
+        facts: [prior.source && prior.model ? `${prior.source} · ${prior.model}` : "", "One official guess a day."]
+          .filter(Boolean)
+          .join(" "),
         streak: prior.streak ?? me.streak,
-        longest: prior.longest ?? me.longest,
         persisted: prior.persisted,
         date: today.date,
         already: true,
       });
     } else {
       showReveal({
-        title: "Already cut.",
-        body: "One official guess a day. Tomorrow the paper changes.",
+        verdict: "Already cut.",
+        tell: "One official guess a day. Tomorrow the paper changes.",
         date: today.date,
         streak: me.streak,
-        longest: me.longest,
         persisted: !!me.username,
       });
     }
+  }
+}
+
+function labelCards(humanSide: Side, correct: boolean, streak: number | null): void {
+  const score = scoreLine(correct, streak);
+  const stage = $(".cut-stage") as HTMLElement | null;
+  if (stage) stage.dataset.picked = "1";
+  for (const col of document.querySelectorAll<HTMLElement>(".col")) {
+    const side = col.dataset.side as Side;
+    const human = side === humanSide;
+    const result = col.querySelector<HTMLElement>(".col-result");
+    const label = col.querySelector<HTMLElement>(".col-label");
+    const scoreEl = col.querySelector<HTMLElement>(".col-score");
+    if (!result || !label || !scoreEl) continue;
+    label.textContent = human ? "Human" : "AI";
+    label.dataset.kind = human ? "human" : "ai";
+    scoreEl.textContent = score;
+    result.hidden = false;
   }
 }
 
@@ -208,11 +223,10 @@ function paintMe(me: Pick<Me, "username" | "streak" | "longest">): void {
 }
 
 function showReveal(opts: {
-  title: string;
-  body?: string;
+  verdict: string;
+  tell?: string;
   facts?: string;
   streak?: number;
-  longest?: number;
   persisted?: boolean;
   date?: string;
   already?: boolean;
@@ -220,9 +234,11 @@ function showReveal(opts: {
   const box = $(".reveal") as HTMLElement | null;
   if (!box) return;
   box.hidden = false;
-  const title = $(".tell");
+  const verdict = $(".verdict");
+  const tell = $(".tell");
   const facts = $(".facts");
-  if (title) title.textContent = opts.body ? `${opts.title} ${opts.body}` : opts.title;
+  if (verdict) verdict.textContent = opts.verdict;
+  if (tell) tell.textContent = opts.tell ?? "";
   if (facts) {
     const bits = [opts.facts, opts.persisted === false ? "Local only until you claim a name." : ""].filter(Boolean);
     facts.textContent = bits.join(" ");

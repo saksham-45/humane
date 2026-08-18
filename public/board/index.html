@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HUMANE — board</title>
+    <link rel="stylesheet" href="/css/app.css" />
+    <link rel="stylesheet" href="/js/play-table.css" />
+  </head>
+  <body class="board-page">
+    <div class="floor" id="board-root">
+      <p id="fixture-note" class="fixture-note" hidden>
+        Layout fixture — /api not mounted. Not a second API.
+      </p>
+
+      <header class="strip">
+        <a class="wordmark" href="/">HUMANE</a>
+        <div class="you-chip" id="you-chip" hidden>
+          <img id="you-face" class="ink-face" width="32" height="32" alt="" />
+          <span id="you-name" class="you-name">—</span>
+        </div>
+        <div class="score-block">
+          <span class="score-label">SCORE</span>
+          <span id="score-today" class="score-num">0</span>
+        </div>
+      </header>
+
+      <div class="round-bar">
+        <span class="pip" aria-hidden="true"></span>
+        <span class="round-read" id="today-line">today</span>
+        <a class="prompt linkish" href="/play/">PLAY</a>
+      </div>
+
+      <main class="board-stage">
+        <section class="board-col">
+          <h1>Today</h1>
+          <ol class="board-list" id="list-today"></ol>
+        </section>
+        <section class="board-col">
+          <h1>All-time</h1>
+          <ol class="board-list" id="list-alltime"></ol>
+        </section>
+      </main>
+    </div>
+    <script type="module" src="/js/board.js"></script>
+  </body>
+</html>

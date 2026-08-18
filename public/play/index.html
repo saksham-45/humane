@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HUMANE — play</title>
+    <link rel="stylesheet" href="/css/app.css" />
+    <link rel="stylesheet" href="/js/play-table.css" />
+  </head>
+  <body class="play-table">
+    <div class="floor" id="play-root">
+      <p id="fixture-note" class="fixture-note" hidden>
+        Layout fixture — /api not mounted. Not a second API.
+      </p>
+
+      <header class="strip">
+        <a class="wordmark" href="/">HUMANE</a>
+        <div class="you-chip" id="you-chip">
+          <img id="you-face" class="ink-face" width="32" height="32" alt="" />
+          <span id="you-name" class="you-name">—</span>
+        </div>
+        <div class="score-block" aria-live="polite">
+          <span class="score-label">SCORE</span>
+          <span id="score-today" class="score-num">0</span>
+          <span id="score-pop" class="score-pop" aria-hidden="true"></span>
+        </div>
+      </header>
+
+      <div class="round-bar">
+        <span class="pip" aria-hidden="true"></span>
+        <span class="round-read">
+          <span id="round-now">1</span>
+          /
+          <span id="round-of">5</span>
+        </span>
+        <span class="prompt">WHICH IS HUMAN</span>
+      </div>
+
+      <div class="stage">
+        <aside class="players" aria-label="You">
+          <div class="player-row is-you">
+            <img id="rail-face" class="ink-face" width="32" height="32" alt="" />
+            <div class="player-meta">
+              <span id="rail-name" class="player-name">—</span>
+              <span id="rail-score" class="player-score">0</span>
+            </div>
+          </div>
+          <div class="player-row is-empty" aria-hidden="true"></div>
+          <div class="player-row is-empty" aria-hidden="true"></div>
+        </aside>
+
+        <main class="desk" id="desk">
+          <p class="topic" id="topic"></p>
+          <div class="pair" id="pair">
+            <button type="button" class="card" id="card-left" data-side="left">
+              <span class="card-kicker">1</span>
+              <span class="mark" id="mark-left" hidden></span>
+              <span class="card-body" id="text-left"></span>
+            </button>
+            <div class="cut" id="cut" aria-hidden="true"></div>
+            <button type="button" class="card" id="card-right" data-side="right">
+              <span class="card-kicker">2</span>
+              <span class="mark" id="mark-right" hidden></span>
+              <span class="card-body" id="text-right"></span>
+            </button>
+          </div>
+          <p class="tell" id="tell" hidden></p>
+        </main>
+
+        <aside class="today-strip" aria-hidden="true">
+          <span class="stamp">5</span>
+          <span class="stamp-label">today</span>
+        </aside>
+      </div>
+    </div>
+
+    <div class="done-booth" id="done-booth" hidden>
+      <div class="done-panel">
+        <p class="done-kicker">desk closed</p>
+        <h1 id="done-score">Today 0/5</h1>
+        <ol class="podium" id="podium"></ol>
+        <p class="done-wait">Play again tomorrow.</p>
+        <a class="board-link" href="/board/">the board</a>
+      </div>
+    </div>
+
+    <script type="module" src="/js/play.js"></script>
+  </body>
+</html>

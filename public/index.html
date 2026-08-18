@@ -4,50 +4,41 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>HUMANE</title>
-    <meta name="description" content="Name, face, play. Five cuts a day." />
     <link rel="stylesheet" href="/css/app.css" />
   </head>
   <body class="door">
     <div class="floor">
-      <div class="booth">
+      <div class="stack">
         <h1 class="wordmark" aria-label="HUMANE">
-          <span>H</span><span>U</span><span>M</span><span>A</span><span>N</span><span class="e-hold">E<img id="logo-face" class="logo-face" width="32" height="32" alt="" /></span>
+          <span class="c0">H</span><span class="c1">U</span><span class="c2">M</span><span class="c3">A</span><span class="c4">N</span><span class="c5">E</span>
         </h1>
-        <form id="door-form" class="door-form" autocomplete="on">
-          <label class="sr" for="username">enter your name</label>
-          <input id="username" name="username" type="text" maxlength="16" autocomplete="username" spellcheck="false" placeholder="enter your name" />
-          <div class="picker">
-            <button type="button" class="arrow" id="prev" aria-label="Previous face">‹</button>
-            <button type="button" class="face-hit" id="face-hit" aria-label="Avatar">
-              <img id="face-img" width="96" height="96" alt="" />
-            </button>
-            <button type="button" class="arrow" id="next" aria-label="Next face">›</button>
-            <button type="button" class="shuffle" id="shuffle" aria-label="Shuffle face">*</button>
-          </div>
-          <input type="hidden" id="avatar" name="avatar" value="ink-0" />
-          <button class="play" id="play" type="submit" disabled>PLAY!</button>
-        </form>
-        <p class="door-nav"><a href="/board">board</a><span>·</span><a href="/about">how</a></p>
+        <div class="booth">
+          <form id="door-form" class="door-form">
+            <div class="namelang">
+              <label class="sr" for="username">enter your name</label>
+              <input id="username" name="username" type="text" maxlength="16" autocomplete="username" spellcheck="false" placeholder="enter your name" />
+              <label class="sr" for="lang">language</label>
+              <select id="lang" name="lang" aria-label="language">
+                <option selected>English</option>
+              </select>
+            </div>
+            <div class="picker">
+              <button type="button" class="arrow up l" id="prev-up" aria-label="Previous face">▲</button>
+              <button type="button" class="arrow dn l" id="prev-dn" aria-label="Previous face">▼</button>
+              <button type="button" class="face-hit" id="face-hit" aria-label="Avatar">
+                <img id="face-img" width="96" height="96" alt="" />
+              </button>
+              <button type="button" class="arrow up r" id="next-up" aria-label="Next face">▲</button>
+              <button type="button" class="arrow dn r" id="next-dn" aria-label="Next face">▼</button>
+              <button type="button" class="shuffle" id="shuffle" aria-label="Shuffle">↻</button>
+            </div>
+            <input type="hidden" id="avatar" name="avatar" value="ink-0" />
+            <button class="play" id="play" type="submit" disabled>Play!</button>
+            <a class="board-btn" href="/board">Board</a>
+          </form>
+        </div>
       </div>
     </div>
-    <footer class="band">
-      <div class="band-grid">
-        <section>
-          <h2>About</h2>
-          <p>Two columns. One still has a person in it. Five a day.</p>
-        </section>
-        <section>
-          <h2>How</h2>
-          <p>Name. Face. Play. Pick the human. +1 if you’re right.</p>
-        </section>
-        <section>
-          <h2>Today</h2>
-          <div class="stamps" aria-label="Today’s five">
-            <span>I</span><span>II</span><span>III</span><span>IV</span><span>V</span>
-          </div>
-        </section>
-      </div>
-    </footer>
     <script>
       (function () {
         var faces = [];
@@ -57,7 +48,6 @@
         var play = document.getElementById("play");
         var hidden = document.getElementById("avatar");
         var faceImg = document.getElementById("face-img");
-        var logoFace = document.getElementById("logo-face");
         var form = document.getElementById("door-form");
 
         function src(id) {
@@ -76,15 +66,7 @@
             faceImg.onerror = null;
             faceImg.src = fallback(id);
           };
-          logoFace.onerror = function () {
-            logoFace.onerror = null;
-            logoFace.src = fallback(id);
-          };
           faceImg.src = src(id);
-          logoFace.src = src(id);
-          logoFace.classList.remove("bounce");
-          void logoFace.offsetWidth;
-          logoFace.classList.add("bounce");
         }
         function syncPlay() {
           play.disabled = !valid(input.value);
@@ -94,14 +76,14 @@
           void input.offsetWidth;
           input.classList.add("shake");
         }
-        document.getElementById("prev").addEventListener("click", function () {
-          idx = (idx + 11) % 12;
+        function step(d) {
+          idx = (idx + d + 12) % 12;
           paint();
-        });
-        document.getElementById("next").addEventListener("click", function () {
-          idx = (idx + 1) % 12;
-          paint();
-        });
+        }
+        document.getElementById("prev-up").addEventListener("click", function () { step(-1); });
+        document.getElementById("prev-dn").addEventListener("click", function () { step(-1); });
+        document.getElementById("next-up").addEventListener("click", function () { step(1); });
+        document.getElementById("next-dn").addEventListener("click", function () { step(1); });
         document.getElementById("shuffle").addEventListener("click", function () {
           idx = Math.floor(Math.random() * 12);
           paint();
@@ -112,12 +94,6 @@
           this.classList.add("pop");
         });
         input.addEventListener("input", syncPlay);
-        play.addEventListener("click", function (ev) {
-          if (play.disabled) {
-            ev.preventDefault();
-            shake();
-          }
-        });
         form.addEventListener("submit", function (ev) {
           ev.preventDefault();
           if (!valid(input.value)) {
@@ -131,11 +107,9 @@
             headers: { "content-type": "application/json" },
             body: JSON.stringify({ username: input.value.trim(), avatar: hidden.value }),
           })
-            .then(function (r) {
-              return r.json();
-            })
+            .then(function (r) { return r.json(); })
             .then(function (out) {
-              if (out && (out.username || out.ok !== false) && !out.error) {
+              if (out && !out.error && (out.username || out.ok !== false)) {
                 location.href = "/play/";
                 return;
               }
@@ -148,9 +122,7 @@
             });
         });
         fetch("/api/me", { credentials: "same-origin" })
-          .then(function (r) {
-            return r.json();
-          })
+          .then(function (r) { return r.json(); })
           .then(function (me) {
             if (me && me.username) {
               input.value = me.username;

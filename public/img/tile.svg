@@ -1,20 +1,34 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" shape-rendering="crispEdges">
-  <rect width="64" height="64" fill="#23103A"/>
-  <rect x="4" y="6" width="4" height="4" fill="#3D1F6B"/>
-  <rect x="8" y="10" width="4" height="4" fill="#3D1F6B"/>
-  <rect x="4" y="10" width="4" height="4" fill="#2A1548"/>
-  <rect x="22" y="4" width="8" height="2" fill="#3D1F6B"/>
-  <rect x="24" y="6" width="4" height="6" fill="#3D1F6B"/>
-  <rect x="46" y="8" width="2" height="8" fill="#351A5C"/>
-  <rect x="44" y="10" width="6" height="2" fill="#351A5C"/>
-  <rect x="10" y="28" width="6" height="2" fill="#3D1F6B"/>
-  <rect x="12" y="24" width="2" height="10" fill="#3D1F6B"/>
-  <rect x="36" y="30" width="4" height="4" fill="#2A1548"/>
-  <rect x="40" y="34" width="4" height="4" fill="#3D1F6B"/>
-  <rect x="52" y="36" width="8" height="2" fill="#351A5C"/>
-  <rect x="6" y="48" width="2" height="8" fill="#3D1F6B"/>
-  <rect x="4" y="52" width="6" height="2" fill="#3D1F6B"/>
-  <rect x="28" y="50" width="4" height="4" fill="#2A1548"/>
-  <rect x="48" y="54" width="4" height="2" fill="#3D1F6B"/>
-  <rect x="52" y="52" width="2" height="6" fill="#3D1F6B"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" shape-rendering="crispEdges">
+  <rect width="96" height="96" fill="#124DA5"/>
+  <!-- pencil -->
+  <rect x="8" y="10" width="3" height="14" fill="#0B3A82"/>
+  <rect x="8" y="24" width="3" height="3" fill="#0A326F"/>
+  <!-- open book -->
+  <rect x="28" y="8" width="7" height="5" fill="#0B3A82"/>
+  <rect x="36" y="8" width="7" height="5" fill="#0A326F"/>
+  <!-- cup -->
+  <rect x="62" y="12" width="8" height="7" fill="#0B3A82"/>
+  <rect x="70" y="14" width="3" height="3" fill="#0A326F"/>
+  <!-- star -->
+  <rect x="80" y="36" width="3" height="3" fill="#0B3A82"/>
+  <rect x="77" y="39" width="9" height="3" fill="#0B3A82"/>
+  <rect x="80" y="42" width="3" height="3" fill="#0B3A82"/>
+  <!-- paper -->
+  <rect x="12" y="44" width="10" height="12" fill="#0B3A82"/>
+  <rect x="14" y="47" width="6" height="2" fill="#0A326F"/>
+  <rect x="14" y="51" width="6" height="2" fill="#0A326F"/>
+  <!-- scissors -->
+  <rect x="48" y="40" width="2" height="10" fill="#0B3A82"/>
+  <rect x="46" y="48" width="6" height="2" fill="#0B3A82"/>
+  <!-- ink pot -->
+  <rect x="70" y="58" width="8" height="8" fill="#0B3A82"/>
+  <rect x="72" y="54" width="4" height="4" fill="#0A326F"/>
+  <!-- stamp -->
+  <rect x="20" y="72" width="10" height="8" fill="#0B3A82"/>
+  <rect x="22" y="74" width="6" height="4" fill="#0A326F"/>
+  <!-- dash marks -->
+  <rect x="50" y="70" width="8" height="2" fill="#0B3A82"/>
+  <rect x="52" y="74" width="8" height="2" fill="#0A326F"/>
+  <rect x="84" y="78" width="4" height="4" fill="#0B3A82"/>
+  <rect x="4" y="84" width="4" height="4" fill="#0A326F"/>
 </svg>

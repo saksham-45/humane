@@ -1,13 +1,23 @@
 import { isAvatar } from "./avatars.ts";
 import { utcDate } from "./date.ts";
 import { dayIndexOf, layoutPair, pickSourcesForDate, ROUNDS, toPublic } from "./pairs.ts";
-import { CLAIM_LIMIT, GUESS_LIMIT, claimKey, consume, guessKey, type RateStore } from "./rate-limit.ts";
+import {
+  CLAIM_LIMIT,
+  COMMENT_LIMIT,
+  GUESS_LIMIT,
+  claimKey,
+  commentKey,
+  consume,
+  guessKey,
+  type RateStore,
+} from "./rate-limit.ts";
 import { pointsDelta } from "./scoring.ts";
 import type { Store } from "./store.ts";
 import { checkUsername, usernameMessage } from "./username.ts";
 import type {
   BoardResult,
   Clock,
+  CommentRow,
   GuessResult,
   IdGen,
   MeResult,
@@ -37,6 +47,8 @@ export class AppError extends Error {
 }
 
 export class HumaneApp {
+  private seededFor: string | null = null;
+
   constructor(private readonly deps: AppDeps) {}
 
   todayDate(): string {
@@ -46,16 +58,20 @@ export class HumaneApp {
   async ensureSeeded(): Promise<void> {
     if (!this.deps.sources?.length) return;
     const date = this.todayDate();
+    if (this.seededFor === date) return;
+    const have = await this.deps.store.listPairsForDate(date);
+    if (have.length >= ROUNDS) {
+      this.seededFor = date;
+      return;
+    }
     const now = this.deps.clock.now().toISOString();
-    for (const src of this.deps.sources) {
-      await this.deps.store.insertPair(recordFromSource(src, src.id, src.play_date, now));
+    const exact = this.deps.sources.filter((s) => s.play_date === date);
+    const pack = exact.length ? exact : pickSourcesForDate(this.deps.sources, date);
+    for (const src of pack) {
+      const id = exact.length ? src.id : `${date}:${src.id}`;
+      await this.deps.store.insertPair(recordFromSource(src, id, date, now));
     }
-    const exact = this.deps.sources.some((s) => s.play_date === date);
-    if (!exact) {
-      for (const src of pickSourcesForDate(this.deps.sources, date)) {
-        await this.deps.store.insertPair(recordFromSource(src, `${date}:${src.id}`, date, now));
-      }
-    }
+    this.seededFor = date;
   }
 
   async next(session: Session): Promise<NextResult> {
@@ -78,8 +94,6 @@ export class HumaneApp {
     avatarRaw: string,
     ip: string,
   ): Promise<{ session: Session; username: string; avatar: string }> {
-    const rate = await consume(this.deps.rates, claimKey(ip), CLAIM_LIMIT, this.deps.clock.now().getTime());
-    if (!rate.ok) throw new AppError(429, "rate_limited", "Slow down.");
     if (!isAvatar(avatarRaw)) throw new AppError(400, "bad_avatar", "Pick a face.");
 
     if (session.playerId) {
@@ -89,6 +103,9 @@ export class HumaneApp {
         return { session, username: existing.username_display, avatar: avatarRaw };
       }
     }
+
+    const rate = await consume(this.deps.rates, claimKey(ip), CLAIM_LIMIT, this.deps.clock.now().getTime());
+    if (!rate.ok) throw new AppError(429, "rate_limited", "Slow down.");
 
     const check = checkUsername(username);
     if (!check.ok) throw new AppError(400, check.error!, usernameMessage(check.error!));
@@ -110,10 +127,9 @@ export class HumaneApp {
   async guess(session: Session, pairId: string, side: Side, ip: string): Promise<GuessResult> {
     if (side !== "left" && side !== "right") throw new AppError(400, "bad_side", "Pick a card.");
     if (!pairId) throw new AppError(400, "bad_pair", "Missing pair.");
-    const rate = await consume(this.deps.rates, guessKey(ip), GUESS_LIMIT, this.deps.clock.now().getTime());
-    if (!rate.ok) throw new AppError(429, "rate_limited", "Slow down.");
-
     const player = await this.requirePlayer(session);
+    const rate = await consume(this.deps.rates, guessKey(player.id), GUESS_LIMIT, this.deps.clock.now().getTime());
+    if (!rate.ok) throw new AppError(429, "rate_limited", "Slow down.");
     await this.ensureSeeded();
     const date = this.todayDate();
     const pack = await this.deps.store.listPairsForDate(date);
@@ -199,6 +215,34 @@ export class HumaneApp {
       this.deps.store.boardAllTime(50),
     ]);
     return { today, alltime };
+  }
+
+  async comments(): Promise<CommentRow[]> {
+    return this.deps.store.listComments(40);
+  }
+
+  async postComment(session: Session, raw: string, ip: string): Promise<CommentRow> {
+    const player = await this.requirePlayer(session);
+    const rate = await consume(
+      this.deps.rates,
+      commentKey(ip),
+      COMMENT_LIMIT,
+      this.deps.clock.now().getTime(),
+    );
+    if (!rate.ok) throw new AppError(429, "rate_limited", "Slow down.");
+    const body = raw.replace(/\s+/g, " ").trim();
+    if (body.length < 1) throw new AppError(400, "empty", "Write something.");
+    if (body.length > 160) throw new AppError(400, "too_long", "Keep it under 160.");
+    const created = this.deps.clock.now().toISOString();
+    const id = this.deps.ids.id();
+    await this.deps.store.insertComment({ id, player_id: player.id, body, created_at: created });
+    return {
+      id,
+      username: player.username_display,
+      avatar: player.avatar,
+      body,
+      created_at: created,
+    };
   }
 
   private async requirePlayer(session: Session) {

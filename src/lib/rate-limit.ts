@@ -14,8 +14,9 @@ export interface RateLimitResult {
   resetAt: number;
 }
 
-export const CLAIM_LIMIT = 10;
+export const CLAIM_LIMIT = 30;
 export const GUESS_LIMIT = 30;
+export const COMMENT_LIMIT = 20;
 export const WINDOW_SEC = 3600;
 
 export async function consume(
@@ -44,8 +45,12 @@ export function claimKey(ip: string): string {
   return `rl:claim:${ip}`;
 }
 
-export function guessKey(ip: string): string {
-  return `rl:guess:${ip}`;
+export function guessKey(playerId: string): string {
+  return `rl:guess:${playerId}`;
+}
+
+export function commentKey(ip: string): string {
+  return `rl:comment:${ip}`;
 }
 
 export class MemoryRateStore implements RateStore {

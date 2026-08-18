@@ -2,6 +2,7 @@ name = "humane"
 main = "src/worker.ts"
 compatibility_date = "2025-10-11"
 compatibility_flags = ["nodejs_compat"]
+workers_dev = true
 
 [assets]
 directory = "./public"
@@ -10,7 +11,7 @@ html_handling = "auto-trailing-slash"
 not_found_handling = "404-page"
 
 [vars]
-PUBLIC_ORIGIN = "https://humane.pages.dev"
+PUBLIC_ORIGIN = "https://humane.sakshamiscool3434.workers.dev"
 
 # Local-only default. Production: wrangler secret put SESSION_SECRET
 # SESSION_SECRET is read from .dev.vars or the secret store.
@@ -18,9 +19,9 @@ PUBLIC_ORIGIN = "https://humane.pages.dev"
 [[d1_databases]]
 binding = "DB"
 database_name = "humane"
-database_id = "00000000-0000-0000-0000-000000000001"
+database_id = "cafbf36f-9cee-437e-a57d-c3e33332cfab"
 migrations_dir = "migrations"
 
 [[kv_namespaces]]
 binding = "KV"
-id = "00000000-0000-0000-0000-000000000002"
+id = "ec56356aaebe49f1a5e4cf1d35467925"

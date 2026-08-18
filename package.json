@@ -4,6 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "wrangler dev",
+    "build:client": "tsc -p src/client/tsconfig.json",
+    "deploy": "npm run build:client && wrangler deploy",
     "test": "npm run validate:pairs && vitest run",
     "validate:pairs": "node scripts/validate-pairs.mjs",
     "typecheck": "tsc --noEmit",

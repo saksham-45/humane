@@ -4,14 +4,25 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>HUMANE</title>
-    <link rel="stylesheet" href="/css/app.css?v=skribbl-door" />
+    <meta name="description" content="Five pairs a day. Pick the human." />
+    <meta name="theme-color" content="#124DA5" />
+    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/css/app.css?v=ready-1" />
   </head>
   <body class="door">
     <div class="floor">
       <div class="stack">
         <h1 class="wordmark" aria-label="HUMANE">
-          <span class="c0">H</span><span class="c1">U</span><span class="c2">M</span><span class="c3">A</span><span class="c4">N</span><span class="c5">E</span>
+          <img class="logo-gif" src="/img/logo.gif" width="399" height="94" alt="HUMANE" />
         </h1>
+        <div class="tiny-faces" aria-hidden="true">
+          <img src="/avatars/ink-0.gif" width="52" height="52" alt="" />
+          <img src="/avatars/ink-2.gif" width="52" height="52" alt="" />
+          <img src="/avatars/ink-3.gif" width="52" height="52" alt="" />
+          <img src="/avatars/ink-4.gif" width="52" height="52" alt="" />
+          <img src="/avatars/ink-7.gif" width="52" height="52" alt="" />
+          <img src="/avatars/ink-1.gif" width="52" height="52" alt="" />
+        </div>
         <div class="booth">
           <form id="door-form" class="door-form">
             <div class="namelang">
@@ -19,34 +30,45 @@
               <input id="username" name="username" type="text" maxlength="16" autocomplete="username" spellcheck="false" placeholder="enter your name" />
               <label class="sr" for="lang">language</label>
               <select id="lang" name="lang" aria-label="language">
-                <option selected>English</option>
+                <option value="en" selected>English</option>
+                <option value="es">Español</option>
+                <option value="hi">हिन्दी</option>
+                <option value="pt">Português</option>
+                <option value="fr">Français</option>
               </select>
             </div>
+            <p class="door-err" id="door-err" hidden></p>
             <div class="well">
-              <div class="hits left">
-                <button type="button" class="hit" id="l0" aria-label="Face up">▲</button>
-                <button type="button" class="hit" id="l1" aria-label="Face mid">▲</button>
-                <button type="button" class="hit" id="l2" aria-label="Face down">▼</button>
-              </div>
-              <button type="button" class="face-hit" id="face-hit" aria-label="Avatar">
-                <img id="face-img" width="96" height="96" alt="" />
+              <button type="button" class="hit hit-left" id="prev" aria-label="Previous face">
+                <img src="/img/arrow-left.png" width="48" height="48" alt="" />
               </button>
-              <div class="hits right">
-                <button type="button" class="hit" id="r0" aria-label="Next up">▲</button>
-                <button type="button" class="hit" id="r1" aria-label="Next mid">▲</button>
-                <button type="button" class="hit" id="r2" aria-label="Next down">▼</button>
-              </div>
-              <button type="button" class="shuffle" id="shuffle" aria-label="Shuffle">↻</button>
+              <button type="button" class="face-hit" id="face-hit" aria-label="Avatar">
+                <img id="face-img" src="/avatars/ink-0.gif" width="168" height="168" alt="" />
+              </button>
+              <button type="button" class="hit hit-right" id="next" aria-label="Next face">
+                <img src="/img/arrow-right.png" width="48" height="48" alt="" />
+              </button>
+              <button type="button" class="shuffle" id="shuffle" aria-label="Shuffle">
+                <img src="/img/shuffle.png" width="36" height="36" alt="" />
+              </button>
             </div>
             <input type="hidden" id="avatar" name="avatar" value="ink-0" />
             <button class="play" id="play" type="submit" disabled>Play!</button>
-            <a class="board-btn" href="/board">Board</a>
+            <a class="board-btn" href="/board/">Board</a>
           </form>
         </div>
       </div>
     </div>
     <script>
       (function () {
+        var FACE_COOKIE = "humane_face";
+        var COPY = {
+          en: { ph: "enter your name", play: "Play!", board: "Board", bad: "3–16 letters, numbers, underscore.", taken: "That name is taken.", net: "Could not reach the table. Try again." },
+          es: { ph: "escribe tu nombre", play: "¡Jugar!", board: "Tabla", bad: "3–16 letras, números o _.", taken: "Ese nombre está tomado.", net: "No se pudo llegar a la mesa." },
+          hi: { ph: "अपना नाम लिखें", play: "खेलो!", board: "बोर्ड", bad: "3–16 अक्षर, अंक या _.", taken: "यह नाम लिया जा चुका है।", net: "टेबल तक नहीं पहुँच सके।" },
+          pt: { ph: "escreve o teu nome", play: "Jogar!", board: "Placar", bad: "3–16 letras, números ou _.", taken: "Esse nome já foi usado.", net: "Não deu para chegar à mesa." },
+          fr: { ph: "entre ton nom", play: "Jouer !", board: "Tableau", bad: "3–16 lettres, chiffres ou _.", taken: "Ce nom est pris.", net: "Impossible de joindre la table." }
+        };
         var faces = [];
         for (var i = 0; i < 12; i++) faces.push("ink-" + i);
         var idx = 0;
@@ -55,10 +77,43 @@
         var hidden = document.getElementById("avatar");
         var faceImg = document.getElementById("face-img");
         var form = document.getElementById("door-form");
+        var err = document.getElementById("door-err");
+        var faceHit = document.getElementById("face-hit");
+        var langEl = document.getElementById("lang");
+        var boardBtn = document.querySelector(".board-btn");
 
-        function src(id) { return "/avatars/" + id + ".svg"; }
-        function fallback(id) { return "/img/" + id + ".svg"; }
+        function copy() { return COPY[langEl.value] || COPY.en; }
+        function src(id) { return "/avatars/" + id + ".gif"; }
+        function fallback(id) { return "/img/" + id + ".gif"; }
         function valid(name) { return /^[a-z0-9_]{3,16}$/i.test(name.trim()); }
+        function readFace() {
+          try {
+            var parts = document.cookie.split(";");
+            for (var i = 0; i < parts.length; i++) {
+              var p = parts[i].trim();
+              if (p.indexOf(FACE_COOKIE + "=") === 0) {
+                return JSON.parse(decodeURIComponent(p.slice(FACE_COOKIE.length + 1)));
+              }
+            }
+          } catch (e) {}
+          return null;
+        }
+        function writeFace(profile) {
+          document.cookie = FACE_COOKIE + "=" + encodeURIComponent(JSON.stringify(profile)) +
+            "; Path=/; Max-Age=31536000; SameSite=Lax";
+        }
+        function applyLang() {
+          var c = copy();
+          document.documentElement.lang = langEl.value || "en";
+          input.placeholder = c.ph;
+          play.textContent = c.play;
+          if (boardBtn) boardBtn.textContent = c.board;
+        }
+        function popFace() {
+          faceHit.classList.remove("pop");
+          void faceHit.offsetWidth;
+          faceHit.classList.add("pop");
+        }
         function paint() {
           var id = faces[idx];
           hidden.value = id;
@@ -68,63 +123,98 @@
           };
           faceImg.src = src(id);
         }
-        function syncPlay() { play.disabled = !valid(input.value); }
-        function shake() {
+        function applyProfile(profile, fromServer) {
+          if (!profile) return;
+          if (profile.username) input.value = profile.username;
+          if (profile.lang && COPY[profile.lang]) langEl.value = profile.lang;
+          var n = faces.indexOf(profile.avatar);
+          if (n >= 0) idx = n;
+          applyLang();
+          paint();
+          syncPlay();
+        }
+        function syncPlay() {
+          play.disabled = !valid(input.value);
+          if (valid(input.value)) hideErr();
+        }
+        function hideErr() {
+          err.hidden = true;
+          err.textContent = "";
+        }
+        function fail(msg) {
+          play.disabled = !valid(input.value);
+          play.classList.remove("is-wait");
           input.classList.remove("shake");
           void input.offsetWidth;
           input.classList.add("shake");
+          err.hidden = false;
+          err.textContent = msg || copy().taken;
         }
         function step(d) {
           idx = (idx + d + 12) % 12;
           paint();
+          popFace();
         }
-        ["l0", "l1", "l2"].forEach(function (id) {
-          document.getElementById(id).addEventListener("click", function () { step(-1); });
-        });
-        ["r0", "r1", "r2"].forEach(function (id) {
-          document.getElementById(id).addEventListener("click", function () { step(1); });
-        });
+        document.getElementById("prev").addEventListener("click", function () { step(-1); });
+        document.getElementById("next").addEventListener("click", function () { step(1); });
         document.getElementById("shuffle").addEventListener("click", function () {
           idx = Math.floor(Math.random() * 12);
           paint();
+          popFace();
         });
-        document.getElementById("face-hit").addEventListener("click", function () {
-          this.classList.remove("pop");
-          void this.offsetWidth;
-          this.classList.add("pop");
-        });
+        faceHit.addEventListener("click", popFace);
         input.addEventListener("input", syncPlay);
+        langEl.addEventListener("change", function () {
+          applyLang();
+          var saved = readFace() || {};
+          saved.lang = langEl.value;
+          if (input.value) saved.username = input.value.trim();
+          saved.avatar = hidden.value;
+          writeFace(saved);
+        });
+        applyProfile(readFace(), false);
+        paint();
+        applyLang();
+        syncPlay();
         form.addEventListener("submit", function (ev) {
           ev.preventDefault();
-          if (!valid(input.value)) { shake(); return; }
+          if (!valid(input.value)) { fail(copy().bad); return; }
           play.disabled = true;
+          play.classList.add("is-wait");
+          hideErr();
+          writeFace({ username: input.value.trim(), avatar: hidden.value, lang: langEl.value });
           fetch("/api/claim", {
             method: "POST",
             credentials: "same-origin",
             headers: { "content-type": "application/json" },
             body: JSON.stringify({ username: input.value.trim(), avatar: hidden.value }),
           })
-            .then(function (r) { return r.json(); })
-            .then(function (out) {
-              if (out && !out.error && (out.username || out.ok !== false)) {
+            .then(function (r) { return r.json().then(function (out) { return { ok: r.ok, out: out }; }); })
+            .then(function (pack) {
+              var out = pack.out || {};
+              if (pack.ok && out && !out.error && (out.username || out.ok !== false)) {
+                writeFace({ username: out.username || input.value.trim(), avatar: out.avatar || hidden.value, lang: langEl.value });
                 location.href = "/play/";
                 return;
               }
-              play.disabled = false;
-              shake();
+              fail(out.message || copy().taken);
             })
             .catch(function () {
-              play.disabled = false;
-              location.href = "/play/";
+              fail(copy().net);
             });
         });
         fetch("/api/me", { credentials: "same-origin" })
           .then(function (r) { return r.json(); })
           .then(function (me) {
             if (me && me.username) {
-              input.value = me.username;
-              var n = faces.indexOf(me.avatar);
-              if (n >= 0) idx = n;
+              var saved = readFace() || {};
+              applyProfile({
+                username: me.username,
+                avatar: me.avatar,
+                lang: saved.lang || langEl.value
+              }, true);
+              writeFace({ username: me.username, avatar: me.avatar, lang: langEl.value });
+              return;
             }
             paint();
             syncPlay();

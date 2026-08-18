@@ -113,6 +113,22 @@ describe("points and five-round day", () => {
     expect(next).not.toHaveProperty("model");
   });
 
+  it("seeds today's five once, not the whole deck every deal", async () => {
+    const { app, store } = makeApp();
+    const claimed = await app.claim(session(), "seeder", "ink-0", "3.3.3.3");
+    let writes = 0;
+    const inner = store.insertPair.bind(store);
+    store.insertPair = async (pair) => {
+      writes += 1;
+      return inner(pair);
+    };
+    await app.next(claimed.session);
+    const afterFirst = writes;
+    expect(afterFirst).toBe(5);
+    await app.next(claimed.session);
+    expect(writes).toBe(afterFirst);
+  });
+
   it("requires a name before play", async () => {
     const { app } = makeApp();
     await expect(app.next(session())).rejects.toMatchObject({ status: 401, code: "need_name" } satisfies Partial<AppError>);

@@ -20,9 +20,11 @@ Five pairs per UTC day. `content/pairs.json` is grouped by `play_date` with `day
 
 Avatars are `ink-0`..`ink-11`. Guess is unique per player per pair. +1 correct, +0 wrong. Labels stay off `GET /api/next` and `guess.next` until a guess lands.
 
+`/api/me` issues an empty session cookie. Claim must refresh that cookie with `playerId` (`withSessionCookie` in `src/worker.ts`) or Play bounces home.
+
 ## Play table and avatars
 
-Play/board/avatars/client JS: `public/avatars/**`, `public/play/`, `public/board/`, `public/js/**`, `src/client/**`. Play/board classes live in `public/js/play-table.css`. Faces are `public/avatars/ink-0.svg` … `ink-11.svg`. Client compile: `npx -p typescript tsc -p src/client/tsconfig.json`.
+Play/board/avatars/client JS: `public/avatars/**`, `public/play/`, `public/board/`, `public/js/**`, `src/client/**`. Play/board classes live in `public/js/play-table.css`. Faces are `public/avatars/ink-0.gif` … `ink-11.gif` (2-frame blink). Logo is `public/img/logo.gif` (2-frame letter jitter). Client compile: `npx -p typescript tsc -p src/client/tsconfig.json`.
 
 Play talks only to `/api/me`, `/api/next`, `/api/guess`, `/api/board`. A 404 from those endpoints uses `src/client/fixture.ts` — not a second API.
 

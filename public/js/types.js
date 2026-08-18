@@ -3,5 +3,5 @@ export function isNextDone(value) {
 }
 export function avatarSrc(id) {
     const slug = /^ink-\d{1,2}$/.test(id) ? id : "ink-0";
-    return `/avatars/${slug}.svg`;
+    return `/avatars/${slug}.gif`;
 }

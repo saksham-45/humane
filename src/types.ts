@@ -92,6 +92,14 @@ export interface BoardResult {
   alltime: Array<{ username: string; avatar: string; scoreTotal: number }>;
 }
 
+export interface CommentRow {
+  id: string;
+  username: string;
+  avatar: string;
+  body: string;
+  created_at: string;
+}
+
 export interface Clock {
   now(): Date;
 }

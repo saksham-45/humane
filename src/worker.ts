@@ -20,34 +20,54 @@ export default {
     const url = new URL(request.url);
     if (url.pathname.startsWith("/api/")) {
       try {
-        return await handleDynamic(request, env, url);
+        return withSecurity(await handleDynamic(request, env, url), "api");
       } catch (err) {
-        if (err instanceof AppError) return json({ error: err.code, message: err.message }, err.status);
+        if (err instanceof AppError) return withSecurity(json({ error: err.code, message: err.message }, err.status), "api");
         console.error(err);
-        return json({ error: "server", message: "The table jammed." }, 500);
+        return withSecurity(json({ error: "server", message: "The table jammed." }, 500), "api");
       }
     }
-    return env.ASSETS.fetch(request);
+    const asset = await env.ASSETS.fetch(request);
+    return withSecurity(asset, cacheKind(url.pathname));
   },
 };
 
+function sessionSecret(env: Env, url: URL): string {
+  if (env.SESSION_SECRET) return env.SESSION_SECRET;
+  const local = url.hostname === "127.0.0.1" || url.hostname === "localhost";
+  if (!local) throw new AppError(500, "server", "The table jammed.");
+  return defaultSecret();
+}
+
 async function handleDynamic(request: Request, env: Env, url: URL): Promise<Response> {
   const app = makeApp(env);
-  const secret = env.SESSION_SECRET || defaultSecret();
+  const secret = sessionSecret(env, url);
   const existing = await decodeSession(secret, readCookie(request.headers.get("Cookie")));
   const session = existing ?? newSessionId({ id: () => crypto.randomUUID() });
   const issued = !existing;
   const secure = url.protocol === "https:";
 
   const res = await handleApi(request, url, app, session);
+  return withSessionCookie(res, session, secret, issued, secure);
+}
 
-  if (issued || res.headers.get("Set-Cookie")) {
-    const token = await encodeSession(secret, sessionFrom(res, session));
-    const headers = new Headers(res.headers);
-    if (!headers.has("Set-Cookie")) headers.append("Set-Cookie", sessionCookie(token, secure));
-    return new Response(res.body, { status: res.status, headers });
-  }
-  return res;
+function cacheKind(pathname: string): "html" | "asset" | "font" | "api" {
+  if (/\.(gif|png|jpe?g|svg|woff2)$/i.test(pathname)) return "font";
+  if (/\.(css|js)$/i.test(pathname)) return "asset";
+  return "html";
+}
+
+function withSecurity(res: Response, kind: "html" | "asset" | "font" | "api"): Response {
+  const headers = new Headers(res.headers);
+  headers.set("X-Content-Type-Options", "nosniff");
+  headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+  headers.set("X-Frame-Options", "DENY");
+  headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+  if (kind === "api") headers.set("Cache-Control", "no-store");
+  else if (kind === "font") headers.set("Cache-Control", "public, max-age=604800, immutable");
+  else if (kind === "asset") headers.set("Cache-Control", "public, max-age=3600");
+  else headers.set("Cache-Control", "no-cache");
+  return new Response(res.body, { status: res.status, headers });
 }
 
 function sessionFrom(res: Response, fallback: Session): Session {
@@ -58,6 +78,23 @@ function sessionFrom(res: Response, fallback: Session): Session {
   } catch {
     return fallback;
   }
+}
+
+/** Persist playerId after claim. /api/me already issued an empty cookie. */
+export async function withSessionCookie(
+  res: Response,
+  session: Session,
+  secret: string,
+  issued: boolean,
+  secure: boolean,
+): Promise<Response> {
+  const next = sessionFrom(res, session);
+  const changed = next.id !== session.id || next.playerId !== session.playerId;
+  if (!issued && !changed && !res.headers.get("Set-Cookie")) return res;
+  const token = await encodeSession(secret, next);
+  const headers = new Headers(res.headers);
+  if (!headers.has("Set-Cookie")) headers.append("Set-Cookie", sessionCookie(token, secure));
+  return new Response(res.body, { status: res.status, headers });
 }
 
 export async function handleApi(
@@ -114,6 +151,15 @@ async function routeApi(
 
   if (url.pathname === "/api/board" && request.method === "GET") {
     return json(await app.board());
+  }
+
+  if (url.pathname === "/api/comments" && request.method === "GET") {
+    return json({ comments: await app.comments() });
+  }
+
+  if (url.pathname === "/api/comments" && request.method === "POST") {
+    const body = await readJson(request);
+    return json(await app.postComment(session, String(body.body ?? ""), ip));
   }
 
   return json({ error: "not_found", message: "No such room." }, 404);

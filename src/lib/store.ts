@@ -1,4 +1,4 @@
-import type { GuessRecord, PairRecord, PlayerRecord } from "../types.ts";
+import type { CommentRow, GuessRecord, PairRecord, PlayerRecord } from "../types.ts";
 
 export interface TodayRow {
   username: string;
@@ -30,6 +30,9 @@ export interface Store {
 
   boardToday(date: string, limit: number): Promise<TodayRow[]>;
   boardAllTime(limit: number): Promise<AllTimeRow[]>;
+
+  listComments(limit: number): Promise<CommentRow[]>;
+  insertComment(row: { id: string; player_id: string; body: string; created_at: string }): Promise<void>;
 }
 
 export class MemoryStore implements Store {
@@ -121,5 +124,28 @@ export class MemoryStore implements Store {
     }));
     rows.sort((a, b) => b.scoreTotal - a.scoreTotal || a.username.localeCompare(b.username));
     return rows.slice(0, limit);
+  }
+
+  comments: Array<{ id: string; player_id: string; body: string; created_at: string }> = [];
+
+  async listComments(limit: number): Promise<CommentRow[]> {
+    const rows = [...this.comments].sort((a, b) => (a.created_at < b.created_at ? 1 : -1)).slice(0, limit);
+    const out: CommentRow[] = [];
+    for (const c of rows) {
+      const p = this.players.get(c.player_id);
+      if (!p) continue;
+      out.push({
+        id: c.id,
+        username: p.username_display,
+        avatar: p.avatar,
+        body: c.body,
+        created_at: c.created_at,
+      });
+    }
+    return out;
+  }
+
+  async insertComment(row: { id: string; player_id: string; body: string; created_at: string }): Promise<void> {
+    this.comments.push(row);
   }
 }

@@ -1,4 +1,4 @@
-import type { GuessRecord, PairRecord, PlayerRecord, Side } from "../types.ts";
+import type { CommentRow, GuessRecord, PairRecord, PlayerRecord, Side } from "../types.ts";
 import type { AllTimeRow, Store, TodayRow } from "./store.ts";
 
 export class D1Store implements Store {
@@ -166,6 +166,28 @@ export class D1Store implements Store {
       .bind(limit)
       .all<AllTimeRow>();
     return res.results ?? [];
+  }
+
+  async listComments(limit: number): Promise<CommentRow[]> {
+    const res = await this.db
+      .prepare(
+        `SELECT c.id AS id, p.username_display AS username, p.avatar AS avatar,
+                c.body AS body, c.created_at AS created_at
+         FROM comments c
+         JOIN players p ON p.id = c.player_id
+         ORDER BY c.created_at DESC
+         LIMIT ?`,
+      )
+      .bind(limit)
+      .all<CommentRow>();
+    return res.results ?? [];
+  }
+
+  async insertComment(row: { id: string; player_id: string; body: string; created_at: string }): Promise<void> {
+    await this.db
+      .prepare(`INSERT INTO comments (id, player_id, body, created_at) VALUES (?, ?, ?, ?)`)
+      .bind(row.id, row.player_id, row.body, row.created_at)
+      .run();
   }
 }
 

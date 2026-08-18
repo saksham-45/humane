@@ -6,6 +6,7 @@ import {
 } from "./fixture.js";
 import type {
   Board,
+  Comment,
   GuessResponse,
   Me,
   NextResponse,
@@ -166,12 +167,21 @@ export async function getMe(): Promise<Me | { unclaimed: true } | { fixture: Me 
   return me;
 }
 
+function isNeedName(status: number, body: unknown): boolean {
+  if (status === 401 || status === 403) return true;
+  if (!body || typeof body !== "object") return false;
+  return (body as { error?: string }).error === "need_name";
+}
+
 export async function getNext(): Promise<NextResponse> {
   if (fixtureMode) return fixtureNext();
   const result = await get("/api/next");
   if (result === "network") {
     noteFixture("GET /api/next network error");
     return fixtureNext();
+  }
+  if (isNeedName(result.status, result.body)) {
+    return { done: true, scoreToday: 0, scoreTotal: 0, unclaimed: true };
   }
   if (isMissing(result.status)) {
     noteFixture(`GET /api/next ${result.status}`);
@@ -193,12 +203,34 @@ export async function getNext(): Promise<NextResponse> {
   return pair;
 }
 
+export class PlayError extends Error {
+  constructor(
+    public readonly code: string,
+    message: string,
+  ) {
+    super(message);
+  }
+}
+
+function guessCode(status: number, body: unknown): string | null {
+  if (status < 400) return null;
+  if (isNeedName(status, body)) return "need_name";
+  if (body && typeof body === "object" && "error" in body) {
+    return String((body as { error?: string }).error ?? "bad");
+  }
+  return "bad";
+}
+
 export async function postGuess(pairId: string, side: Side): Promise<GuessResponse> {
   if (fixtureMode) return fixtureGuess(pairId, side);
   const result = await post("/api/guess", { pairId, side });
   if (result === "network") {
-    noteFixture("POST /api/guess network error");
-    return fixtureGuess(pairId, side);
+    throw new PlayError("network", "Could not reach the table.");
+  }
+  const code = guessCode(result.status, result.body);
+  if (code) {
+    const rec = (result.body ?? {}) as { message?: string };
+    throw new PlayError(code, String(rec.message ?? "That cut did not land."));
   }
   if (isMissing(result.status)) {
     noteFixture(`POST /api/guess ${result.status}`);
@@ -206,8 +238,7 @@ export async function postGuess(pairId: string, side: Side): Promise<GuessRespon
   }
   const guess = asGuess(result.body);
   if (!guess) {
-    noteFixture("POST /api/guess unreadable payload");
-    return fixtureGuess(pairId, side);
+    throw new PlayError("bad", "That cut did not land.");
   }
   return guess;
 }
@@ -226,5 +257,44 @@ export async function getBoard(): Promise<Board> {
   return asBoard(result.body) ?? fixtureBoard();
 }
 
+function asComments(raw: unknown): Comment[] {
+  if (!raw || typeof raw !== "object") return [];
+  const rec = raw as { comments?: unknown };
+  const list = Array.isArray(rec.comments) ? rec.comments : Array.isArray(raw) ? raw : [];
+  return list.map((row) => {
+    const item = (row ?? {}) as Record<string, unknown>;
+    return {
+      id: String(item.id ?? ""),
+      username: String(item.username ?? ""),
+      avatar: String(item.avatar ?? "ink-0"),
+      body: String(item.body ?? ""),
+      created_at: String(item.created_at ?? ""),
+    };
+  });
+}
+
+export async function getComments(): Promise<Comment[]> {
+  if (fixtureMode) return [];
+  const result = await get("/api/comments");
+  if (result === "network" || isMissing(result.status)) return [];
+  return asComments(result.body);
+}
+
+export async function postComment(body: string): Promise<Comment | { error: string; message: string }> {
+  const result = await post("/api/comments", { body });
+  if (result === "network") return { error: "network", message: "Could not reach the table." };
+  const rec = (result.body ?? {}) as Record<string, unknown>;
+  if (result.status >= 400 || rec.error) {
+    return { error: String(rec.error ?? "bad"), message: String(rec.message ?? "That note did not stick.") };
+  }
+  return {
+    id: String(rec.id ?? ""),
+    username: String(rec.username ?? ""),
+    avatar: String(rec.avatar ?? "ink-0"),
+    body: String(rec.body ?? body),
+    created_at: String(rec.created_at ?? ""),
+  };
+}
+
 export { isNextDone };
-export type { Board, GuessResponse, Me, NextResponse, Pair, Side };
+export type { Board, Comment, GuessResponse, Me, NextResponse, Pair, Side };

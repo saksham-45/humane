@@ -4,8 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>HUMANE — play</title>
-    <link rel="stylesheet" href="/css/app.css" />
-    <link rel="stylesheet" href="/js/play-table.css" />
+    <meta name="theme-color" content="#124DA5" />
+    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/css/app.css?v=ready-1" />
+    <link rel="stylesheet" href="/js/play-table.css?v=ready-1" />
   </head>
   <body class="play-table">
     <div class="floor" id="play-root">
@@ -14,9 +16,11 @@
       </p>
 
       <header class="strip">
-        <a class="wordmark" href="/">HUMANE</a>
+        <a class="wordmark" href="/" aria-label="HUMANE">
+          <img class="logo-gif" src="/img/logo.gif" width="220" height="52" alt="HUMANE" />
+        </a>
         <div class="you-chip" id="you-chip">
-          <img id="you-face" class="ink-face" width="32" height="32" alt="" />
+          <img id="you-face" class="ink-face" src="/avatars/ink-0.gif" width="40" height="40" alt="" />
           <span id="you-name" class="you-name">—</span>
         </div>
         <div class="score-block" aria-live="polite">
@@ -27,10 +31,10 @@
       </header>
 
       <div class="round-bar">
-        <span class="pip" aria-hidden="true"></span>
+        <span class="clock" aria-hidden="true"><span class="clock-hand"></span></span>
         <span class="round-read">
           <span id="round-now">1</span>
-          /
+          <span class="round-slash">/</span>
           <span id="round-of">5</span>
         </span>
         <span class="prompt">WHICH IS HUMAN</span>
@@ -39,7 +43,7 @@
       <div class="stage">
         <aside class="players" aria-label="You">
           <div class="player-row is-you">
-            <img id="rail-face" class="ink-face" width="32" height="32" alt="" />
+            <img id="rail-face" class="ink-face" src="/avatars/ink-0.gif" width="40" height="40" alt="" />
             <div class="player-meta">
               <span id="rail-name" class="player-name">—</span>
               <span id="rail-score" class="player-score">0</span>
@@ -76,14 +80,14 @@
 
     <div class="done-booth" id="done-booth" hidden>
       <div class="done-panel">
-        <p class="done-kicker">desk closed</p>
+        <img id="done-face" class="ink-face done-face" src="/avatars/ink-0.gif" width="72" height="72" alt="" />
         <h1 id="done-score">Today 0/5</h1>
         <ol class="podium" id="podium"></ol>
         <p class="done-wait">Play again tomorrow.</p>
-        <a class="board-link" href="/board/">the board</a>
+        <a class="board-link" href="/board/">Board</a>
       </div>
     </div>
 
-    <script type="module" src="/js/play.js"></script>
+    <script type="module" src="/js/play.js?v=day-1"></script>
   </body>
 </html>

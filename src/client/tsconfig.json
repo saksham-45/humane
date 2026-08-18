@@ -12,6 +12,6 @@
     "skipLibCheck": true,
     "noEmitOnError": true
   },
-  "include": ["./**/*.ts"],
-  "exclude": ["./**/*.mjs"]
+  "include": ["./api.ts", "./board.ts", "./fixture.ts", "./play.ts", "./sweep.ts", "./types.ts"],
+  "exclude": ["./**/*.mjs", "./app.ts", "./cut.ts", "./spring.ts"]
 }

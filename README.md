@@ -37,18 +37,53 @@ See `content/PAIRS.md`. Short version: append a dated object to `content/pairs.j
 
 v1 ships 30 days starting 2026-08-17. Path to 200 is more dated rows in that file.
 
-## Deploy (Cloudflare Pages + Worker + D1 + KV)
+## Deploy for free (Cloudflare, not Vercel)
 
-Production does not need the captain's Cloudflare login to finish the PR. When an account exists:
+This app is a Cloudflare Worker + D1 + KV + static `public/` files. Vercel does not run D1 or this Worker. The free host that matches the stack is Cloudflare. A Hobby Vercel project would need a rewrite.
 
-1. Create a D1 database named `humane` and a KV namespace.
-2. Put the real IDs into `wrangler.toml` (`database_id`, KV `id`).
-3. `npx wrangler d1 migrations apply humane --remote`
-4. `npx wrangler secret put SESSION_SECRET`
-5. Optional: set `PUBLIC_ORIGIN` to the live URL (used on the share image).
-6. `npm run build:client && npx wrangler deploy`
+```sh
+npm install
+npm run build:client
+npx wrangler login
+npx wrangler d1 create humane
+npx wrangler kv namespace create KV
+```
 
-Pages/Workers assets are the `public/` directory. The Worker owns `/api/*` and `/og/:date/:username.png`.
+Paste the printed `database_id` and KV `id` into `wrangler.toml`. Then:
+
+```sh
+npx wrangler d1 migrations apply humane --remote
+npx wrangler secret put SESSION_SECRET
+```
+
+Use a long random string for `SESSION_SECRET`. Without it, production refuses to sign cookies.
+
+Optional: set `PUBLIC_ORIGIN` in `wrangler.toml` `[vars]` to your live URL.
+
+```sh
+npm run deploy
+```
+
+That publishes the Worker and the `public/` assets. The first URL wrangler prints is live. Custom domain: Cloudflare dashboard → Workers → your worker → Triggers → Custom Domains. Still free on the Workers paid-nothing tier for this traffic.
+
+## GitHub → Cloudflare (every push)
+
+The live Worker is `humane`. Pushes to `main` on GitHub deploy it.
+
+1. Repo: https://github.com/saksham-45/humane
+2. GitHub Actions workflow: `.github/workflows/deploy.yml`
+3. Required repo secrets:
+   - `CLOUDFLARE_ACCOUNT_ID`
+   - `CLOUDFLARE_API_TOKEN` (Edit Cloudflare Workers)
+
+Optional native pipeline: Cloudflare dashboard → Worker `humane` → Settings → Builds → Connect GitHub → this repo → production branch `main` → build `npm run build:client` → deploy `npx wrangler deploy`.
+
+Local check after deploy:
+
+```sh
+curl -sI https://YOUR-SUBDOMAIN.workers.dev | head
+curl -s https://YOUR-SUBDOMAIN.workers.dev/api/me
+```
 
 ### Env
 

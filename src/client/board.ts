@@ -1,5 +1,5 @@
-import { getBoard, getMe, usingFixture } from "./api.js";
-import { avatarSrc, type Board, type Me } from "./types.js";
+import { getBoard, getComments, getMe, postComment, usingFixture } from "./api.js";
+import { avatarSrc, type Board, type Comment, type Me } from "./types.js";
 
 function $(id: string): HTMLElement {
   const el = document.getElementById(id);
@@ -10,16 +10,19 @@ function $(id: string): HTMLElement {
 function paintFace(img: HTMLImageElement, avatar: string, name: string): void {
   img.src = avatarSrc(avatar);
   img.alt = "";
-  img.width = 32;
-  img.height = 32;
+  img.width = 48;
+  img.height = 48;
   img.decoding = "async";
   img.classList.add("ink-face");
   img.title = name;
 }
 
-function row(name: string, avatar: string, score: number, you: string | null): HTMLLIElement {
+function row(place: number, name: string, avatar: string, score: number, you: string | null): HTMLLIElement {
   const li = document.createElement("li");
-  li.className = "board-row" + (you && name === you ? " is-you" : "");
+  li.className = "board-row" + (you && name === you ? " is-you" : "") + (place <= 3 ? ` place-${place}` : "");
+  const rank = document.createElement("span");
+  rank.className = "place";
+  rank.textContent = String(place);
   const img = document.createElement("img");
   paintFace(img, avatar, name);
   const who = document.createElement("span");
@@ -28,7 +31,7 @@ function row(name: string, avatar: string, score: number, you: string | null): H
   const pts = document.createElement("span");
   pts.className = "pts";
   pts.textContent = String(score);
-  li.append(img, who, pts);
+  li.append(rank, img, who, pts);
   return li;
 }
 
@@ -45,6 +48,24 @@ function fillList(id: string, rows: HTMLLIElement[], empty: string): void {
   list.append(...rows);
 }
 
+function commentItem(c: Comment): HTMLLIElement {
+  const li = document.createElement("li");
+  li.className = "comment-row";
+  const img = document.createElement("img");
+  paintFace(img, c.avatar, c.username);
+  const wrap = document.createElement("div");
+  wrap.className = "comment-meta";
+  const who = document.createElement("span");
+  who.className = "who";
+  who.textContent = c.username;
+  const body = document.createElement("p");
+  body.className = "comment-body";
+  body.textContent = c.body;
+  wrap.append(who, body);
+  li.append(img, wrap);
+  return li;
+}
+
 async function boot(): Promise<void> {
   const root = $("board-root");
   const meResult = await getMe();
@@ -57,6 +78,12 @@ async function boot(): Promise<void> {
     $("fixture-note").hidden = false;
   }
 
+  const form = $("comment-form") as HTMLFormElement;
+  const body = $("comment-body") as HTMLTextAreaElement;
+  const send = $("comment-send") as HTMLButtonElement;
+  const err = $("comment-err");
+  const hint = $("comment-hint");
+
   if (me) {
     paintFace($("you-face") as HTMLImageElement, me.avatar, me.username);
     $("you-name").textContent = me.username;
@@ -67,23 +94,58 @@ async function boot(): Promise<void> {
     } else {
       $("today-line").textContent = `${me.round} / ${me.of}`;
     }
+    hint.hidden = true;
+    send.disabled = false;
   } else {
     $("you-chip").hidden = true;
     $("today-line").textContent = "today";
+    hint.hidden = false;
+    send.disabled = true;
+    body.disabled = true;
   }
 
   const board: Board = await getBoard();
   const you = me?.username ?? null;
   fillList(
     "list-today",
-    board.today.map((item) => row(item.username, item.avatar, item.scoreToday, you)),
+    board.today.map((item, i) => row(i + 1, item.username, item.avatar, item.scoreToday, you)),
     "Nobody has a mark today.",
   );
   fillList(
     "list-alltime",
-    board.alltime.map((item) => row(item.username, item.avatar, item.scoreTotal, you)),
+    board.alltime.map((item, i) => row(i + 1, item.username, item.avatar, item.scoreTotal, you)),
     "The all-time board is empty.",
   );
+
+  const list = $("comment-list");
+  const notes = await getComments();
+  list.replaceChildren();
+  if (notes.length === 0) {
+    const empty = document.createElement("li");
+    empty.className = "board-empty";
+    empty.textContent = "No notes yet.";
+    list.append(empty);
+  } else {
+    list.append(...notes.map(commentItem));
+  }
+
+  form.addEventListener("submit", async (ev) => {
+    ev.preventDefault();
+    if (!me) return;
+    err.hidden = true;
+    send.disabled = true;
+    const out = await postComment(body.value);
+    send.disabled = false;
+    if ("error" in out) {
+      err.hidden = false;
+      err.textContent = out.message;
+      return;
+    }
+    body.value = "";
+    const empty = list.querySelector(".board-empty");
+    if (empty) empty.remove();
+    list.prepend(commentItem(out));
+  });
 }
 
 void boot();

@@ -50,9 +50,10 @@ function setCut(cut, t) {
     const cardCenter = dir < 0 ? pairW * 0.25 : pairW * 0.75;
     const extra = Math.max(0, abs - 1);
     const x = mid + dir * cover * (Math.abs(cardCenter - mid)) + dir * extra * pairW;
+    const tilt = dir * cover * 2.4 + dir * extra * 1.2;
     cut.style.width = `${Math.max(blade, width)}px`;
     cut.style.left = `${x}px`;
-    cut.style.transform = "translateX(-50%)";
+    cut.style.transform = `translateX(-50%) rotate(${tilt}deg)`;
     cut.style.opacity = extra > 0.8 ? String(Math.max(0, 1.6 - extra * 1.4)) : "1";
     cut.setAttribute("data-dir", t < 0 ? "left" : t > 0 ? "right" : "mid");
 }
@@ -69,13 +70,17 @@ export class Sweep {
         const target = side === "left" ? -0.08 : side === "right" ? 0.08 : 0;
         setCut(this.handles.cut, target);
         this.cutX = target;
+        this.handles.left.classList.toggle("is-lean", side === "left");
+        this.handles.right.classList.toggle("is-lean", side === "right");
     }
     press(side) {
         const press = side === "left" ? -0.22 : 0.22;
         setCut(this.handles.cut, press);
         this.cutX = press;
         const card = side === "left" ? this.handles.left : this.handles.right;
-        card.classList.add("is-pressed");
+        this.handles.left.classList.remove("is-lean");
+        this.handles.right.classList.remove("is-lean");
+        card.classList.add("is-pressed", "is-picking");
     }
     async resolve(side, result) {
         const { left, right, leftMark, rightMark, tell, pair, desk, cut } = this.handles;
@@ -88,6 +93,11 @@ export class Sweep {
         rightMark.textContent = result.humanSide === "right" ? "Human" : "AI";
         leftMark.hidden = false;
         rightMark.hidden = false;
+        leftMark.classList.remove("is-in");
+        rightMark.classList.remove("is-in");
+        void leftMark.offsetWidth;
+        leftMark.classList.add("is-in");
+        rightMark.classList.add("is-in");
         tell.hidden = false;
         tell.textContent = [
             result.correct ? "You found the human." : "That one was written by a machine.",
@@ -109,29 +119,31 @@ export class Sweep {
             await wait(160);
             return;
         }
+        await wait(240);
         await animateSpring(this.cutX, cover, (x) => {
             this.cutX = x;
             setCut(cut, x);
-        });
-        // Full sweep off — the last movement they already liked.
+        }, 9.2);
         const off = side === "left" ? -2.15 : 2.15;
         await Promise.all([
             animateSpring(this.cutX, off, (x) => {
                 this.cutX = x;
                 setCut(cut, x);
-            }, 10),
+            }, 9),
             animateSpring(0, side === "left" ? -1.05 : 1.05, (x) => {
-                pair.style.transform = `translateX(${x * 100}%)`;
-            }, 10),
+                pair.style.transform = `translateX(${x * 100}%) rotate(${x * -1.4}deg)`;
+            }, 9),
         ]);
         desk.style.opacity = "1";
     }
     async deal(pair) {
         const h = this.handles;
-        h.left.classList.remove("is-pressed", "is-hit", "is-miss", "is-human", "is-ai");
-        h.right.classList.remove("is-pressed", "is-hit", "is-miss", "is-human", "is-ai");
+        h.left.classList.remove("is-pressed", "is-picking", "is-hit", "is-miss", "is-human", "is-ai", "is-lean");
+        h.right.classList.remove("is-pressed", "is-picking", "is-hit", "is-miss", "is-human", "is-ai", "is-lean");
         h.leftMark.hidden = true;
         h.rightMark.hidden = true;
+        h.leftMark.classList.remove("is-in");
+        h.rightMark.classList.remove("is-in");
         h.tell.hidden = true;
         h.tell.textContent = "";
         h.topic.textContent = pair.topic;
@@ -146,11 +158,11 @@ export class Sweep {
             h.desk.style.opacity = "1";
             return;
         }
-        h.pair.style.transform = "translateX(108%)";
+        h.pair.style.transform = "translateX(108%) rotate(1.6deg)";
         h.desk.style.opacity = "1";
         await animateSpring(1.08, 0, (x) => {
-            h.pair.style.transform = `translateX(${x * 100}%)`;
-        }, 10);
+            h.pair.style.transform = `translateX(${x * 100}%) rotate(${x * 1.6}deg)`;
+        }, 9.4);
         h.pair.style.transform = "translateX(0)";
     }
 }

@@ -1,4 +1,4 @@
-import { getBoard, getMe, getNext, postGuess, usingFixture } from "./api.js";
+import { PlayError, getBoard, getMe, getNext, postGuess, usingFixture } from "./api.js";
 import { Sweep } from "./sweep.js";
 import { avatarSrc, isNextDone } from "./types.js";
 function $(id) {
@@ -10,8 +10,8 @@ function $(id) {
 function paintFace(img, avatar, name) {
     img.src = avatarSrc(avatar);
     img.alt = "";
-    img.width = 32;
-    img.height = 32;
+    img.width = 40;
+    img.height = 40;
     img.decoding = "async";
     img.classList.add("ink-face");
     img.dataset.avatar = avatar;
@@ -53,6 +53,15 @@ function popScore(next, delta) {
 function showDone(scoreToday, of = 5) {
     const overlay = $("done-booth");
     $("done-score").textContent = `Today ${scoreToday}/${of}`;
+    const you = document.getElementById("you-face");
+    const done = document.getElementById("done-face");
+    if (you && done && you.src) {
+        done.src = you.src;
+        done.hidden = false;
+    }
+    else if (done) {
+        done.hidden = true;
+    }
     overlay.hidden = false;
     overlay.classList.add("is-in");
     $("pair").style.transform = "translateX(0)";
@@ -112,6 +121,10 @@ async function boot() {
     }
     const incoming = await getNext();
     if (isNextDone(incoming)) {
+        if (incoming.unclaimed) {
+            location.replace("/");
+            return;
+        }
         showDone(incoming.scoreToday, 5);
         return;
     }
@@ -130,43 +143,64 @@ async function boot() {
     });
     let pair = incoming;
     let round = me.round;
-    let busy = false;
-    await sweep.deal(pair);
-    $("topic").textContent = pair.topic;
+    let busy = true;
     const pick = async (side) => {
         if (busy)
             return;
         busy = true;
         sweep.press(side);
-        const result = await postGuess(pair.id, side);
-        popScore(result.scoreToday, result.pointsDelta);
-        $("score-today").textContent = String(result.scoreToday);
-        $("rail-score").textContent = String(result.scoreToday);
-        await sweep.resolve(side, result);
-        if (!result.next || result.round >= result.of) {
-            showDone(result.scoreToday, result.of);
-            return;
+        try {
+            const result = await postGuess(pair.id, side);
+            popScore(result.scoreToday, result.pointsDelta);
+            $("score-today").textContent = String(result.scoreToday);
+            $("rail-score").textContent = String(result.scoreToday);
+            await sweep.resolve(side, result);
+            if (!result.next || result.round >= result.of) {
+                showDone(result.scoreToday, result.of);
+                return;
+            }
+            pair = result.next;
+            round = Math.min(result.of, result.round + 1);
+            paintHeader({
+                username: me.username,
+                avatar: me.avatar,
+                scoreToday: result.scoreToday,
+                round,
+                of: result.of,
+            });
+            await sweep.deal(pair);
         }
-        pair = result.next;
-        round = Math.min(result.of, result.round + 1);
-        paintHeader({
-            username: me.username,
-            avatar: me.avatar,
-            scoreToday: result.scoreToday,
-            round,
-            of: result.of,
-        });
-        await sweep.deal(pair);
+        catch (err) {
+            const code = err instanceof PlayError ? err.code : "";
+            if (code === "done_today") {
+                showDone(me.scoreToday, me.of);
+                return;
+            }
+            if (code === "need_name") {
+                location.replace("/");
+                return;
+            }
+            const tell = $("tell");
+            tell.hidden = false;
+            tell.textContent =
+                err instanceof PlayError ? err.message : "That cut did not land. Try the other card.";
+            const chosen = side === "left" ? $("card-left") : $("card-right");
+            chosen.classList.remove("is-pressed", "is-picking");
+            sweep.lean(null);
+        }
         busy = false;
     };
-    $("card-left").addEventListener("pointerdown", (event) => {
-        event.preventDefault();
-        void pick("left");
-    });
-    $("card-right").addEventListener("pointerdown", (event) => {
-        event.preventDefault();
-        void pick("right");
-    });
+    const bindCard = (id, side) => {
+        const el = $(id);
+        el.addEventListener("pointerup", (event) => {
+            if ("button" in event && event.button !== 0)
+                return;
+            event.preventDefault();
+            void pick(side);
+        });
+    };
+    bindCard("card-left", "left");
+    bindCard("card-right", "right");
     $("card-left").addEventListener("pointerenter", () => {
         if (!busy)
             sweep.lean("left");
@@ -188,5 +222,8 @@ async function boot() {
         event.preventDefault();
         void pick(side);
     });
+    await sweep.deal(pair);
+    $("topic").textContent = pair.topic;
+    busy = false;
 }
 void boot();

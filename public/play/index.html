@@ -2,13 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>HUMANE — play</title>
     <meta name="theme-color" content="#124DA5" />
     <link rel="icon" href="/img/favicon.svg?v=face-1" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/img/favicon.svg?v=face-1" />
-    <link rel="stylesheet" href="/css/app.css?v=ready-1" />
-    <link rel="stylesheet" href="/js/play-table.css?v=score-1" />
+    <link rel="stylesheet" href="/css/app.css?v=mobile-2" />
+    <link rel="stylesheet" href="/js/play-table.css?v=mobile-2" />
   </head>
   <body class="play-table">
     <div class="floor" id="play-root">
@@ -56,20 +56,23 @@
 
         <main class="desk" id="desk">
           <p class="topic" id="topic"></p>
+          <p class="play-note" id="play-note" hidden></p>
           <div class="pair" id="pair">
             <button type="button" class="card" id="card-left" data-side="left">
               <span class="card-kicker">1</span>
-              <span class="mark" id="mark-left" hidden></span>
               <span class="card-body" id="text-left"></span>
+              <span class="ink-stamp" id="stamp-left" hidden>
+                <span class="ink-stamp-face"></span>
+              </span>
             </button>
-            <div class="cut" id="cut" aria-hidden="true"></div>
             <button type="button" class="card" id="card-right" data-side="right">
               <span class="card-kicker">2</span>
-              <span class="mark" id="mark-right" hidden></span>
               <span class="card-body" id="text-right"></span>
+              <span class="ink-stamp" id="stamp-right" hidden>
+                <span class="ink-stamp-face"></span>
+              </span>
             </button>
           </div>
-          <p class="tell" id="tell" hidden></p>
         </main>
 
         <aside class="today-strip" aria-hidden="true">
@@ -90,6 +93,6 @@
       </div>
     </div>
 
-    <script type="module" src="/js/play.js?v=score-1"></script>
+    <script type="module" src="/js/play.js?v=stamp-2"></script>
   </body>
 </html>

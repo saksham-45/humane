@@ -68,7 +68,6 @@ function showDone(scoreToday: number, of = 5, scoreTotal = scoreToday): void {
   }
   overlay.hidden = false;
   overlay.classList.add("is-in");
-  $("pair").style.transform = "translateX(0)";
   $("desk").classList.add("is-closed");
   void fillPodium();
 }
@@ -139,15 +138,13 @@ async function boot(): Promise<void> {
   const sweep = new Sweep({
     desk: $("desk"),
     pair: $("pair"),
-    cut: $("cut"),
     left: $("card-left"),
     right: $("card-right"),
     topic: $("topic"),
     leftText: $("text-left"),
     rightText: $("text-right"),
-    leftMark: $("mark-left"),
-    rightMark: $("mark-right"),
-    tell: $("tell"),
+    leftStamp: $("stamp-left"),
+    rightStamp: $("stamp-right"),
   });
 
   let pair: Pair = incoming;
@@ -158,6 +155,7 @@ async function boot(): Promise<void> {
     if (busy) return;
     busy = true;
     sweep.press(side);
+    $("play-note").hidden = true;
     try {
       const result = await postGuess(pair.id, side);
       popScore(result.scoreTotal, result.pointsDelta);
@@ -189,10 +187,10 @@ async function boot(): Promise<void> {
         location.replace("/");
         return;
       }
-      const tell = $("tell");
-      tell.hidden = false;
-      tell.textContent =
-        err instanceof PlayError ? err.message : "That cut did not land. Try the other card.";
+      const note = $("play-note");
+      note.hidden = false;
+      note.textContent =
+        err instanceof PlayError ? err.message : "That stamp did not land. Try the other card.";
       const chosen = side === "left" ? $("card-left") : $("card-right");
       chosen.classList.remove("is-pressed", "is-picking");
       sweep.lean(null);

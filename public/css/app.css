@@ -74,10 +74,20 @@ html {
 html,
 body {
   margin: 0;
-  min-height: 100%;
+  height: 100%;
+  max-height: 100dvh;
+  overflow: hidden;
   color: var(--text);
   font-family: Sora, "Segoe UI", sans-serif;
   font-weight: 600;
+}
+
+html:has(body.board-page),
+body.board-page {
+  height: auto;
+  max-height: none;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 a {
@@ -101,7 +111,9 @@ input:focus-visible {
 
 /* —— door / lobby: measured skribbl home —— */
 .door {
-  min-height: 100vh;
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
   background-color: #124da5;
   color: #f0f0f0;
   font-family: Nunito, sans-serif;
@@ -109,10 +121,12 @@ input:focus-visible {
 }
 
 .floor {
-  min-height: 100vh;
+  height: 100%;
+  min-height: 0;
   display: grid;
-  place-items: start center;
-  padding: 28px 12px 32px;
+  place-items: center;
+  padding: max(10px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom));
+  overflow: hidden;
   background-color: #124da5;
   background-image: url("/img/tile.gif?v=thin-3");
   background-size: 300px 300px;
@@ -123,10 +137,12 @@ input:focus-visible {
 .stack {
   width: min(560px, 96vw);
   max-width: 100%;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
+  justify-content: center;
+  gap: clamp(6px, 1.4vh, 14px);
 }
 
 .wordmark {
@@ -139,7 +155,7 @@ input:focus-visible {
 
 .logo-gif {
   display: block;
-  width: min(720px, 96vw);
+  width: min(720px, 92vw, 34vh);
   height: auto;
   filter: drop-shadow(3px 3px 0 rgba(0, 0, 0, 0.25));
 }
@@ -188,32 +204,35 @@ input:focus-visible {
 
 .namelang {
   display: flex;
+  flex-direction: row;
+  align-items: stretch;
   gap: 4px;
 }
 
-.namelang input[type="text"] {
-  flex: 1;
-  min-width: 0;
+.namelang input[type="text"],
+.namelang select {
   height: 48px;
+  flex-shrink: 0;
   border: 3px solid #111;
-  border-radius: 8px 3px 10px 5px;
-  padding: 0 12px;
-  font: 800 16px Nunito, sans-serif;
   color: #1a1020;
   background: #fffdf6;
   box-shadow: 3px 3px 0 #111;
 }
 
+.namelang input[type="text"] {
+  flex: 1 1 auto;
+  min-width: 0;
+  border-radius: 8px 3px 10px 5px;
+  padding: 0 12px;
+  font: 800 16px Nunito, sans-serif;
+}
+
 .namelang select {
+  flex: 0 0 132px;
   width: 132px;
-  height: 48px;
-  border: 3px solid #111;
   border-radius: 8px 3px 9px 4px;
   padding: 0 8px;
   font: 800 14px Nunito, sans-serif;
-  color: #1a1020;
-  background: #fffdf6;
-  box-shadow: 3px 3px 0 #111;
 }
 
 .namelang input:focus,
@@ -602,23 +621,83 @@ body:not(.door) {
     min-height: auto;
   }
 
+  .namelang input[type="text"],
+  .namelang select {
+    height: 46px;
+  }
+
+  .namelang input[type="text"] {
+    font-size: 14px;
+    padding: 0 10px;
+  }
+
+  .namelang select {
+    flex-basis: 108px;
+    width: 108px;
+    font-size: 13px;
+  }
+
   .door .logo-gif {
-    width: min(92vw, 640px);
+    width: min(92vw, 28vh, 420px);
+  }
+
+  .tiny-faces {
+    gap: 6px;
+    padding: 6px 8px;
   }
 
   .tiny-faces img {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
+  }
+
+  .booth {
+    width: min(520px, 96vw);
+    padding: 12px;
   }
 
   .well {
-    grid-template-columns: 48px 132px 48px;
+    grid-template-columns: 44px 112px 44px;
+    gap: 8px;
+    padding: 10px 8px;
   }
 
   .face-hit,
   .face-hit img {
-    width: 132px;
-    height: 132px;
+    width: 112px;
+    height: 112px;
+  }
+
+  .hit,
+  .hit img {
+    width: 44px;
+    height: 44px;
+  }
+
+  .play {
+    height: 52px;
+    font-size: 1.7em;
+  }
+}
+
+@media (max-height: 700px) {
+  .tiny-faces {
+    display: none;
+  }
+
+  .door .logo-gif {
+    width: min(88vw, 22vh, 360px);
+  }
+
+  .well {
+    grid-template-columns: 40px 96px 40px;
+    padding: 8px 6px;
+  }
+
+  .face-hit,
+  .face-hit img {
+    width: 96px;
+    height: 96px;
   }
 }
 

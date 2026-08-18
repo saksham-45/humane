@@ -31,9 +31,9 @@ Skribbl lobby-to-rounds, not a blog.
 
 - Header: your face, your name, SCORE, round `2 / 5`.
 - Two fat cards. You pick the side you think is human.
-- Keep the full sweep already liked: press, the cut covers that side, then it sweeps off.
-- Two new cards come in. Repeat.
+- A rubber stamp slams **HUMAN** or **AI** on the card you picked. Then the next pair is already there.
 - After pair 5: stop. Show **Today n/5** and the board. Come back tomorrow for five new pairs.
+- The door and the table are one canvas. Nothing scrolls off the screen. The board page can scroll so the notes stay reachable.
 
 A side or bottom strip like their player list: you highlighted, score under the name.
 
@@ -47,7 +47,7 @@ A side or bottom strip like their player list: you highlighted, score under the 
 ## Motion that stays
 
 - Door: Play/Board physically press. Face bounce 125ms. Wallpaper does not crawl.
-- Table: the full sweep they already said was cool, then the next pair. Not a thin static divider as the result.
+- Table: rubber stamp on the pick, then the next pair. No expanding cut, no page scroll.
 
 ## What this is not (killed)
 

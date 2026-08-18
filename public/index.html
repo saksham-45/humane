@@ -2,13 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>HUMANE</title>
     <meta name="description" content="Five pairs a day. Pick the human." />
     <meta name="theme-color" content="#124DA5" />
     <link rel="icon" href="/img/favicon.svg?v=face-1" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/img/favicon.svg?v=face-1" />
-    <link rel="stylesheet" href="/css/app.css?v=name-3" />
+    <link rel="stylesheet" href="/css/app.css?v=mobile-2" />
   </head>
   <body class="door">
     <div class="floor">
@@ -106,7 +106,7 @@
         function applyLang() {
           var c = copy();
           document.documentElement.lang = langEl.value || "en";
-          input.placeholder = c.ph;
+          input.placeholder = window.innerWidth < 520 ? "your name (3+ chars)" : c.ph;
           play.textContent = c.play;
           if (boardBtn) boardBtn.textContent = c.board;
         }
@@ -165,6 +165,7 @@
         });
         faceHit.addEventListener("click", popFace);
         input.addEventListener("input", syncPlay);
+        window.addEventListener("resize", applyLang);
         langEl.addEventListener("change", function () {
           applyLang();
           var saved = readFace() || {};

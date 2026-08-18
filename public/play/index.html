@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>HUMANE — play</title>
     <meta name="theme-color" content="#124DA5" />
-    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/img/favicon.svg?v=face-1" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/img/favicon.svg?v=face-1" />
     <link rel="stylesheet" href="/css/app.css?v=ready-1" />
-    <link rel="stylesheet" href="/js/play-table.css?v=ready-1" />
+    <link rel="stylesheet" href="/js/play-table.css?v=score-1" />
   </head>
   <body class="play-table">
     <div class="floor" id="play-root">
@@ -82,12 +83,13 @@
       <div class="done-panel">
         <img id="done-face" class="ink-face done-face" src="/avatars/ink-0.gif" width="72" height="72" alt="" />
         <h1 id="done-score">Today 0/5</h1>
+        <p id="done-all" class="done-all">All-time 0</p>
         <ol class="podium" id="podium"></ol>
         <p class="done-wait">Play again tomorrow.</p>
         <a class="board-link" href="/board/">Board</a>
       </div>
     </div>
 
-    <script type="module" src="/js/play.js?v=day-1"></script>
+    <script type="module" src="/js/play.js?v=score-1"></script>
   </body>
 </html>

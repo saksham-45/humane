@@ -612,11 +612,17 @@
 }
 
 .done-panel h1 {
-  margin: 8px 0 18px;
+  margin: 8px 0 4px;
   font-size: 48px;
   letter-spacing: -0.03em;
   color: #1a1020;
   text-shadow: none;
+}
+
+.done-all {
+  margin: 0 0 18px;
+  font: 800 20px Nunito, sans-serif;
+  color: #5a3d18;
 }
 
 .podium {

@@ -31,18 +31,18 @@ export function dayPack(date: string, n = 5): PairSource[] {
 }
 
 export function makeApp(opts?: { date?: string; sources?: PairSource[]; ipStore?: MemoryRateStore }) {
-  const date = opts?.date ?? "2026-08-17";
+  const clock = { date: opts?.date ?? "2026-08-17" };
   const store = new MemoryStore();
   const rates = opts?.ipStore ?? new MemoryRateStore();
   let n = 0;
   const app = new HumaneApp({
     store,
     rates,
-    clock: { now: () => new Date(`${date}T12:00:00.000Z`) },
+    clock: { now: () => new Date(`${clock.date}T12:00:00.000Z`) },
     ids: { id: () => `id-${++n}` },
-    sources: opts?.sources ?? dayPack(date),
+    sources: opts?.sources ?? dayPack(clock.date),
   });
-  return { app, store, rates, date };
+  return { app, store, rates, date: clock.date, clock };
 }
 
 export const session = (playerId: string | null = null) => ({ id: "sess-1", playerId });

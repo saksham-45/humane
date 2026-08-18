@@ -93,14 +93,19 @@ export class HumaneApp {
     username: string,
     avatarRaw: string,
     ip: string,
-  ): Promise<{ session: Session; username: string; avatar: string }> {
+  ): Promise<{ session: Session; username: string; avatar: string; scoreTotal: number }> {
     if (!isAvatar(avatarRaw)) throw new AppError(400, "bad_avatar", "Pick a face.");
 
     if (session.playerId) {
       const existing = await this.deps.store.getPlayer(session.playerId);
       if (existing) {
         await this.deps.store.updatePlayer(existing.id, { avatar: avatarRaw });
-        return { session, username: existing.username_display, avatar: avatarRaw };
+        return {
+          session,
+          username: existing.username_display,
+          avatar: avatarRaw,
+          scoreTotal: existing.score_total,
+        };
       }
     }
 
@@ -109,6 +114,17 @@ export class HumaneApp {
 
     const check = checkUsername(username);
     if (!check.ok) throw new AppError(400, check.error!, usernameMessage(check.error!));
+
+    const owned = await this.deps.store.getPlayerByNorm(check.norm);
+    if (owned) {
+      await this.deps.store.updatePlayer(owned.id, { avatar: avatarRaw });
+      return {
+        session: { id: session.id, playerId: owned.id },
+        username: owned.username_display,
+        avatar: avatarRaw,
+        scoreTotal: owned.score_total,
+      };
+    }
 
     const now = this.deps.clock.now().toISOString();
     const playerId = this.deps.ids.id();
@@ -120,8 +136,20 @@ export class HumaneApp {
       created_at: now,
       score_total: 0,
     });
-    if (inserted === "conflict") throw new AppError(409, "taken", "Taken.");
-    return { session: { id: session.id, playerId }, username: check.display, avatar: avatarRaw };
+    if (inserted === "conflict") {
+      const raced = await this.deps.store.getPlayerByNorm(check.norm);
+      if (raced) {
+        await this.deps.store.updatePlayer(raced.id, { avatar: avatarRaw });
+        return {
+          session: { id: session.id, playerId: raced.id },
+          username: raced.username_display,
+          avatar: avatarRaw,
+          scoreTotal: raced.score_total,
+        };
+      }
+      throw new AppError(409, "taken", "Taken.");
+    }
+    return { session: { id: session.id, playerId }, username: check.display, avatar: avatarRaw, scoreTotal: 0 };
   }
 
   async guess(session: Session, pairId: string, side: Side, ip: string): Promise<GuessResult> {

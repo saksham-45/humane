@@ -6,7 +6,8 @@
     <title>HUMANE</title>
     <meta name="description" content="Five pairs a day. Pick the human." />
     <meta name="theme-color" content="#124DA5" />
-    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/img/favicon.svg?v=face-1" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/img/favicon.svg?v=face-1" />
     <link rel="stylesheet" href="/css/app.css?v=name-3" />
   </head>
   <body class="door">
@@ -182,7 +183,7 @@
           play.disabled = true;
           play.classList.add("is-wait");
           hideErr();
-          writeFace({ username: input.value.trim(), avatar: hidden.value, lang: langEl.value });
+          writeFace({ username: input.value.trim(), avatar: hidden.value, lang: langEl.value, scoreTotal: (readFace() || {}).scoreTotal || 0 });
           fetch("/api/claim", {
             method: "POST",
             credentials: "same-origin",
@@ -193,7 +194,7 @@
             .then(function (pack) {
               var out = pack.out || {};
               if (pack.ok && out && !out.error && (out.username || out.ok !== false)) {
-                writeFace({ username: out.username || input.value.trim(), avatar: out.avatar || hidden.value, lang: langEl.value });
+                writeFace({ username: out.username || input.value.trim(), avatar: out.avatar || hidden.value, lang: langEl.value, scoreTotal: Number(out.scoreTotal || 0) });
                 location.href = "/play/";
                 return;
               }
@@ -213,7 +214,7 @@
                 avatar: me.avatar,
                 lang: saved.lang || langEl.value
               }, true);
-              writeFace({ username: me.username, avatar: me.avatar, lang: langEl.value });
+              writeFace({ username: me.username, avatar: me.avatar, lang: langEl.value, scoreTotal: Number(me.scoreTotal || 0) });
               return;
             }
             paint();

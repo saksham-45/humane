@@ -3,7 +3,7 @@ import { AppError } from "../src/lib/app.ts";
 import { humanSideForId } from "../src/lib/pairs.ts";
 import { pointsDelta } from "../src/lib/scoring.ts";
 import { handleApi } from "../src/worker.ts";
-import { makeApp, session } from "./helpers.ts";
+import { dayPack, makeApp, session } from "./helpers.ts";
 
 describe("points and five-round day", () => {
   it("awards +1 or +0", () => {
@@ -129,6 +129,52 @@ describe("points and five-round day", () => {
     expect(writes).toBe(afterFirst);
   });
 
+  it("resets today's score at the next UTC day and keeps all-time on the player", async () => {
+    const day1 = "2026-08-17";
+    const day2 = "2026-08-18";
+    const { app, clock } = makeApp({
+      date: day1,
+      sources: [...dayPack(day1), ...dayPack(day2)],
+    });
+    const claimed = await app.claim(session(), "keeper", "ink-0", "1.1.1.1");
+    const first = await app.next(claimed.session);
+    if (!("id" in first)) throw new Error("expected a pair");
+    const hit = await app.guess(claimed.session, first.id, humanSideForId(first.id), "1.1.1.1");
+    expect(hit.scoreToday).toBe(1);
+    expect(hit.scoreTotal).toBe(1);
+
+    clock.date = day2;
+    const nextDay = await app.me(claimed.session);
+    expect(nextDay.date).toBe(day2);
+    expect(nextDay.scoreToday).toBe(0);
+    expect(nextDay.scoreTotal).toBe(1);
+    expect(nextDay.doneToday).toBe(false);
+
+    const again = await app.next(claimed.session);
+    if (!("id" in again)) throw new Error("expected a pair");
+    const hit2 = await app.guess(claimed.session, again.id, humanSideForId(again.id), "1.1.1.1");
+    expect(hit2.scoreToday).toBe(1);
+    expect(hit2.scoreTotal).toBe(2);
+  });
+
+  it("reattaches a lost session to the same name and keeps all-time score", async () => {
+    const { app } = makeApp();
+    const first = await app.claim(session("s1"), "oakdesk", "ink-0", "1.1.1.1");
+    const pair = await app.next(first.session);
+    if (!("id" in pair)) throw new Error("expected a pair");
+    await app.guess(first.session, pair.id, humanSideForId(pair.id), "1.1.1.1");
+
+    const lost = session("s2");
+    const back = await app.claim(lost, "OakDesk", "ink-7", "9.9.9.9");
+    expect(back.username).toBe("oakdesk");
+    expect(back.avatar).toBe("ink-7");
+    expect(back.session.playerId).toBe(first.session.playerId);
+    expect(back.scoreTotal).toBe(1);
+
+    const me = await app.me(back.session);
+    expect(me).toMatchObject({ username: "oakdesk", avatar: "ink-7", scoreToday: 1, scoreTotal: 1 });
+  });
+
   it("requires a name before play", async () => {
     const { app } = makeApp();
     await expect(app.next(session())).rejects.toMatchObject({ status: 401, code: "need_name" } satisfies Partial<AppError>);
@@ -153,7 +199,7 @@ describe("HTTP contract shapes", () => {
       session(),
     );
     expect(claimRes.status).toBe(200);
-    expect(await claimRes.json()).toEqual({ username: "ada_lovelace", avatar: "ink-11" });
+    expect(await claimRes.json()).toEqual({ username: "ada_lovelace", avatar: "ink-11", scoreTotal: 0 });
     const nextSession = JSON.parse(claimRes.headers.get("X-Session")!);
 
     const badAvatar = await handleApi(

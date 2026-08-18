@@ -134,7 +134,7 @@ async function routeApi(
 
   if (url.pathname === "/api/claim" && request.method === "POST") {
     const body = await readJson(request);
-    const { session: next, username, avatar } = await app.claim(
+    const { session: next, username, avatar, scoreTotal } = await app.claim(
       session,
       String(body.username ?? ""),
       String(body.avatar ?? ""),
@@ -142,7 +142,7 @@ async function routeApi(
     );
     const headers = new Headers({ "content-type": "application/json; charset=utf-8" });
     headers.set("X-Session", JSON.stringify(next));
-    return new Response(JSON.stringify({ username, avatar }), { status: 200, headers });
+    return new Response(JSON.stringify({ username, avatar, scoreTotal }), { status: 200, headers });
   }
 
   if (url.pathname === "/api/me" && request.method === "GET") {

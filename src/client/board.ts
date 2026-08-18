@@ -87,7 +87,7 @@ async function boot(): Promise<void> {
   if (me) {
     paintFace($("you-face") as HTMLImageElement, me.avatar, me.username);
     $("you-name").textContent = me.username;
-    $("score-today").textContent = String(me.scoreToday);
+    $("score-today").textContent = String(me.scoreTotal);
     $("you-chip").hidden = false;
     if (me.doneToday) {
       $("today-line").textContent = `Today ${me.scoreToday}/${me.of}`;

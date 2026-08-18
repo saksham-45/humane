@@ -26,14 +26,14 @@ function markFixture(root: HTMLElement): void {
   banner.hidden = false;
 }
 
-function paintHeader(me: Pick<Me, "username" | "avatar" | "scoreToday" | "round" | "of">): void {
+function paintHeader(me: Pick<Me, "username" | "avatar" | "scoreToday" | "scoreTotal" | "round" | "of">): void {
   const name = $("you-name");
   name.textContent = me.username;
   paintFace($("you-face") as HTMLImageElement, me.avatar, me.username);
   paintFace($("rail-face") as HTMLImageElement, me.avatar, me.username);
   $("rail-name").textContent = me.username;
-  $("score-today").textContent = String(me.scoreToday);
-  $("rail-score").textContent = String(me.scoreToday);
+  $("score-today").textContent = String(me.scoreTotal);
+  $("rail-score").textContent = String(me.scoreTotal);
   $("round-now").textContent = String(me.round);
   $("round-of").textContent = String(me.of);
 }
@@ -54,9 +54,10 @@ function popScore(next: number, delta: number): void {
   }
 }
 
-function showDone(scoreToday: number, of = 5): void {
+function showDone(scoreToday: number, of = 5, scoreTotal = scoreToday): void {
   const overlay = $("done-booth");
   $("done-score").textContent = `Today ${scoreToday}/${of}`;
+  $("done-all").textContent = `All-time ${scoreTotal}`;
   const you = document.getElementById("you-face") as HTMLImageElement | null;
   const done = document.getElementById("done-face") as HTMLImageElement | null;
   if (you && done && you.src) {
@@ -121,7 +122,7 @@ async function boot(): Promise<void> {
   paintHeader(me);
 
   if (me.doneToday) {
-    showDone(me.scoreToday, me.of);
+    showDone(me.scoreToday, me.of, me.scoreTotal);
     return;
   }
 
@@ -131,7 +132,7 @@ async function boot(): Promise<void> {
       location.replace("/");
       return;
     }
-    showDone(incoming.scoreToday, 5);
+    showDone(incoming.scoreToday, 5, incoming.scoreTotal);
     return;
   }
 
@@ -159,12 +160,12 @@ async function boot(): Promise<void> {
     sweep.press(side);
     try {
       const result = await postGuess(pair.id, side);
-      popScore(result.scoreToday, result.pointsDelta);
-      $("score-today").textContent = String(result.scoreToday);
-      $("rail-score").textContent = String(result.scoreToday);
+      popScore(result.scoreTotal, result.pointsDelta);
+      $("score-today").textContent = String(result.scoreTotal);
+      $("rail-score").textContent = String(result.scoreTotal);
       await sweep.resolve(side, result);
       if (!result.next || result.round >= result.of) {
-        showDone(result.scoreToday, result.of);
+        showDone(result.scoreToday, result.of, result.scoreTotal);
         return;
       }
       pair = result.next;
@@ -173,6 +174,7 @@ async function boot(): Promise<void> {
         username: me.username,
         avatar: me.avatar,
         scoreToday: result.scoreToday,
+        scoreTotal: result.scoreTotal,
         round,
         of: result.of,
       });
@@ -180,7 +182,7 @@ async function boot(): Promise<void> {
     } catch (err) {
       const code = err instanceof PlayError ? err.code : "";
       if (code === "done_today") {
-        showDone(me.scoreToday, me.of);
+        showDone(me.scoreToday, me.of, me.scoreTotal);
         return;
       }
       if (code === "need_name") {

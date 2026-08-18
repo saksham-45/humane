@@ -6,17 +6,15 @@ This file is the project's committed home for project-intrinsic agent knowledge:
 
 ## Stack
 
-Cloudflare Worker + static assets + D1 + KV. No React, Next, Vercel, or Supabase. See `wrangler.toml`, `src/worker.ts`, `public/`.
+Cloudflare Worker + D1 + KV + static assets. No React, Next, Vercel, or Supabase. See `wrangler.toml` and `src/worker.ts`.
 
-Local: `npx wrangler d1 migrations apply humane --local` then `npm run dev`. Tests: `npm test`. Pairs: `content/pairs.json` and `content/PAIRS.md`.
+Local: `npx wrangler d1 migrations apply humane --local` then `npm run dev`. Tests: `npm test`. Pair catalog: `content/pairs.json`.
 
-## Scoring and labels
+## Scoring API
 
-Labels live only in D1 / the Worker bundle. `GET /api/today` must never include `human_side`, tell, source, or model. Scoring is `src/lib/app.ts` + `src/lib/scoring.ts`.
+Five pairs per UTC day. `content/pairs.json` is grouped by `play_date` with `day_index` 0–4. `src/lib/pairs.ts` picks today's five (exact date, else cycle). Schema: `migrations/0001_schema.sql`. Routes and shapes: `src/worker.ts` and `src/types.ts`.
 
-## Motion
-
-The play cut is a critically damped spring on press (`src/client/cut.ts`, `src/client/spring.ts`). Do not replace it with a CSS fade except under `prefers-reduced-motion`. After settle it is only a thin center gutter (`CUT_SETTLE = 0` in `src/lib/cut-layout.ts`) — never a slab over a card. Cards get a small Human/AI mark and the same streak line. Never stamp SIGNAL or Blood; verdict copy is `src/lib/reveal.ts`.
+Avatars are `ink-0`..`ink-11`. Guess is unique per player per pair. +1 correct, +0 wrong. Labels stay off `GET /api/next` and `guess.next` until a guess lands.
 
 ## Maintaining this file
 

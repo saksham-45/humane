@@ -8,297 +8,357 @@
       "ai": "Beginning a building project often involves borrowing tools, which can actually strengthen community bonds and create a sense of shared investment in the outcome. An axe is a foundational implement, and taking proper care of borrowed equipment is widely recognized as a best practice. Many people report that returning a tool in better condition than it was received builds trust and sets a constructive precedent. Spring is frequently described as a season of renewal, when frozen ground softens and dormant energy returns to the landscape. Approaching work in this spirit can help a new dwelling feel aligned with both practical needs and a broader sense of purpose.",
       "human_source": "Henry David Thoreau, Walden (1854). Project Gutenberg eBook #205.",
       "ai_model": "local-draft",
-      "tell": "He names the pond, the pines, and that the axe went back sharper than it came."
+      "tell": "He names the pond, the pines, and that the axe went back sharper than it came.",
+      "slot": 1,
+      "day_index": 0
     },
     {
       "id": "okakura-tea",
-      "play_date": "2026-08-18",
+      "play_date": "2026-08-17",
       "topic": "A cup of tea",
-      "human": "Tea began as a medicine and grew into a beverage. In China, in the eighth century, it entered the realm of poetry as one of the polite amusements. The fifteenth century saw Japan ennoble it into a religion of aestheticism—Teaism. Teaism is a cult founded on the adoration of the beautiful among the sordid facts of everyday existence. It inculcates purity and harmony, the mystery of mutual charity, the romanticism of the social order. It is essentially a worship of the Imperfect, as it is a tender attempt to accomplish something possible in this impossible thing we know as life. The Philosophy of Tea is not mere aestheticism in the ordinary acceptance of the term, for it expresses conjointly with ethics and religion our whole point of view about man and nature.",
+      "human": "Tea began as a medicine and grew into a beverage. In China, in the eighth century, it entered the realm of poetry as one of the polite amusements. The fifteenth century saw Japan ennoble it into a religion of aestheticism\u2014Teaism. Teaism is a cult founded on the adoration of the beautiful among the sordid facts of everyday existence. It inculcates purity and harmony, the mystery of mutual charity, the romanticism of the social order. It is essentially a worship of the Imperfect, as it is a tender attempt to accomplish something possible in this impossible thing we know as life. The Philosophy of Tea is not mere aestheticism in the ordinary acceptance of the term, for it expresses conjointly with ethics and religion our whole point of view about man and nature.",
       "ai": "Tea occupies a unique place in cultural history, evolving from a medicinal preparation into a widely consumed beverage with significant social meaning. Over time, different societies developed ceremonies that emphasize mindfulness, hospitality, and aesthetic refinement. These practices are often described as offering a framework for finding beauty in ordinary settings, which many commentators see as increasingly relevant in a busy modern world. The associated philosophy is said to integrate ethics, health, and a balanced relationship with the natural environment. In this sense, tea is not only a drink but a structured opportunity for reflection, connection, and the pursuit of harmony amid everyday complexity.",
       "human_source": "Kakuzo Okakura, The Book of Tea (1906). Project Gutenberg eBook #769.",
       "ai_model": "local-draft",
-      "tell": "He dates China in the eighth century and Japan in the fifteenth, then coins Teaism in one breath."
+      "tell": "He dates China in the eighth century and Japan in the fifteenth, then coins Teaism in one breath.",
+      "slot": 2,
+      "day_index": 1
     },
     {
       "id": "twain-river",
-      "play_date": "2026-08-19",
+      "play_date": "2026-08-17",
       "topic": "A crooked river",
-      "human": "The Mississippi is well worth reading about. It is not a commonplace river, but on the contrary is in all ways remarkable. Considering the Missouri its main branch, it is the longest river in the world—four thousand three hundred miles. It seems safe to say that it is also the crookedest river in the world, since in one part of its journey it uses up one thousand three hundred miles to cover the same ground that the crow would fly over in six hundred and seventy-five. It discharges three times as much water as the St. Lawrence, twenty-five times as much as the Rhine, and three hundred and thirty-eight times as much as the Thames. No other river has so vast a drainage-basin: it draws its water supply from twenty-eight States and Territories.",
+      "human": "The Mississippi is well worth reading about. It is not a commonplace river, but on the contrary is in all ways remarkable. Considering the Missouri its main branch, it is the longest river in the world\u2014four thousand three hundred miles. It seems safe to say that it is also the crookedest river in the world, since in one part of its journey it uses up one thousand three hundred miles to cover the same ground that the crow would fly over in six hundred and seventy-five. It discharges three times as much water as the St. Lawrence, twenty-five times as much as the Rhine, and three hundred and thirty-eight times as much as the Thames. No other river has so vast a drainage-basin: it draws its water supply from twenty-eight States and Territories.",
       "ai": "Major river systems play a central role in shaping geography, commerce, and national identity. The Mississippi is frequently cited as one of the most significant waterways in North America, notable both for its length and for the scale of the region it drains. Its winding course is often described as an illustration of how natural channels prioritize local gradients over straight-line efficiency. Comparative discharge figures are commonly used to communicate magnitude to readers unfamiliar with hydrology. Taken together, these features help explain why the river has long been treated as a subject worthy of sustained attention in both literature and public life.",
       "human_source": "Mark Twain, Life on the Mississippi (1883). Project Gutenberg eBook #245.",
       "ai_model": "local-draft",
-      "tell": "He stacks exact mile counts and a crow's flight against the Rhine and the Thames."
+      "tell": "He stacks exact mile counts and a crow's flight against the Rhine and the Thames.",
+      "slot": 3,
+      "day_index": 2
     },
     {
       "id": "walton-trout",
-      "play_date": "2026-08-20",
+      "play_date": "2026-08-17",
       "topic": "A trout on a fly",
       "human": "O, Sir, doubt not but that Angling is an art; is it not an art to deceive a Trout with an artificial Fly? a Trout! that is more sharp-sighted than any Hawk you have named, and more watchful and timorous than your high-mettled Merlin is bold? and yet, I doubt not to catch a brace or two to-morrow, for a friend's breakfast: doubt not therefore, Sir, but that angling is an art, and an art worth your learning. The question is rather, whether you be capable of learning it? angling is somewhat like poetry, men are to be born so: I mean, with inclinations to it, though both may be heightened by discourse and practice: but he that hopes to be a good angler, must not only bring an inquiring, searching, observing wit, but he must bring a large measure of hope and patience.",
       "ai": "Fishing is widely regarded as both a recreational activity and a skill that rewards careful observation. Fly-fishing in particular is often described as an art because it requires the angler to imitate insect life closely enough to persuade a cautious fish. Commentators note that success depends on patience, attention, and a willingness to learn from repeated small failures. Many introductions to the craft emphasize that aptitude can be developed through practice, even if some people seem more naturally drawn to the water. In this view, angling offers not only a method for catching breakfast but a structured way to cultivate focus and a calmer relationship with outdoor time.",
       "human_source": "Izaak Walton, The Compleat Angler (1653). Project Gutenberg eBook #683.",
       "ai_model": "local-draft",
-      "tell": "He bets a brace of trout for a friend's breakfast and likens the craft to being born a poet."
+      "tell": "He bets a brace of trout for a friend's breakfast and likens the craft to being born a poet.",
+      "slot": 4,
+      "day_index": 3
     },
     {
       "id": "muir-sierra",
-      "play_date": "2026-08-21",
+      "play_date": "2026-08-17",
       "topic": "Sierra snowmelt",
       "human": "The snow on the high mountains is melting, and the voiceless mountains are singing in the flood. The pines are in ecstasy, waving their shining needles and tossing their cones, while the air is filled with their spicy fragrance. The streams are bank-full, swaying the sedges and lilies, and making the ferns and mosses wet and glad. Every tree is a living fountain, sending forth streams of life to the air, and the rocks themselves seem to thrill and glow in the warm sun. How interesting to trace the history of a single raindrop, from the time it is blown from the sea until it falls on the Sierra, to be frozen, melted, and sent singing to the sea again.",
       "ai": "Seasonal snowmelt is a defining process in high mountain ranges, converting stored winter precipitation into spring and summer runoff. This transition supports downstream ecosystems and is often described as a period of heightened sensory richness, with increased streamflow, stronger plant growth, and more noticeable forest scent. Researchers and nature writers alike have used the raindrop's journey as a way to explain the water cycle in accessible terms. The broader takeaway is that alpine landscapes are dynamic systems rather than static scenery. Understanding that cycle can deepen appreciation for mountain environments and for the many communities that depend on their runoff.",
       "human_source": "John Muir, My First Summer in the Sierra (1911). Project Gutenberg eBook #32540.",
       "ai_model": "local-draft",
-      "tell": "He gives the pines needles and cones, then follows one raindrop from sea to ice and back."
+      "tell": "He gives the pines needles and cones, then follows one raindrop from sea to ice and back.",
+      "slot": 5,
+      "day_index": 4
     },
     {
       "id": "white-swallows",
-      "play_date": "2026-08-22",
+      "play_date": "2026-08-18",
       "topic": "Swallows at the eaves",
       "human": "The swallow is a delicate songster, and in soft sunny weather sings both perching and flying. The house-swallow is a great frequenter of towns and villages, and makes its nest against beams and rafters, and in chimneys. It is a very swift flyer, and feeds on the wing, taking flies and gnats with a snapping motion of the bill. About the middle of September they assemble in great flocks on the roofs and on the towers, and after much twittering depart, as it should seem, for warmer climates. I have paid some attention to their coming and going these many years, and still the first swallow of April startles me as if I had never seen the bird before.",
       "ai": "Migratory songbirds are an important part of seasonal change in settled landscapes. Swallows in particular are often associated with human structures, nesting under eaves and in chimneys while feeding on flying insects. Their departure in autumn is commonly treated as a reliable calendar mark, and their return in spring is widely described as a welcome signal that warmer weather has arrived. Long-term observation of arrival dates can help communities notice shifts in climate and habitat. In that sense, a familiar bird at the roofline is both a local pleasure and a small data point in a much larger pattern of movement.",
       "human_source": "Gilbert White, The Natural History of Selborne (1789). Project Gutenberg eBook #1408.",
       "ai_model": "local-draft",
-      "tell": "He still startles at the first April swallow after years of watching the same roof."
+      "tell": "He still startles at the first April swallow after years of watching the same roof.",
+      "slot": 1,
+      "day_index": 0
     },
     {
       "id": "beeton-bread",
-      "play_date": "2026-08-23",
+      "play_date": "2026-08-18",
       "topic": "A loaf in the oven",
       "human": "Bread is the staff of life, and it is of the first importance that it should be good. Flour should be perfectly dry, and kept in a cool, dry place. Yeast must be fresh, or the bread will be heavy. Mix the dough in a large pan, and knead it thoroughly; the more it is kneaded the lighter it will be. Set it to rise in a warm place, covered with a cloth, until it is well swollen. Then knead it again, shape it into loaves, and let it rise a second time. Bake in a moderately hot oven until the crust is brown and the loaf, when tapped at the bottom, sounds hollow. A heavy loaf is a reproach to any house.",
       "ai": "Home baking remains a popular way to engage with everyday food production and to understand basic fermentation. Successful bread typically depends on dry flour, active leavening, thorough kneading, and sufficient time for the dough to rise. A second rise after shaping is often recommended to improve texture, and doneness is commonly judged by crust color and a hollow sound when the loaf is tapped. These steps are presented in many household manuals as both practical technique and a marker of care. In contemporary terms, the process offers a clear example of how small, repeatable actions can produce a reliable staple.",
       "human_source": "Isabella Beeton, The Book of Household Management (1861). Project Gutenberg eBook #10136.",
       "ai_model": "local-draft",
-      "tell": "She calls a heavy loaf a reproach and trusts a hollow tap more than a clock."
+      "tell": "She calls a heavy loaf a reproach and trusts a hollow tap more than a clock.",
+      "slot": 2,
+      "day_index": 1
     },
     {
       "id": "bacon-gardens",
-      "play_date": "2026-08-24",
+      "play_date": "2026-08-18",
       "topic": "A garden in three parts",
       "human": "God Almighty first planted a garden. And indeed it is the purest of human pleasures. It is the greatest refreshment to the spirits of man; without which, buildings and palaces are but gross handyworks: and a man shall ever see, that when ages grow to civility and elegancy, men come to build stately sooner than to garden finely; as if gardening were the greater perfection. I do hold it, in the royal ordering of gardens, there ought to be gardens for all the months in the year; in which, severally, things of beauty may be then in season. For December, and January, and the latter part of November, you must take such things as are green all winter: holly, ivy, bays, juniper, cypress-trees, yew, pine-apple-trees, fir-trees, rosemary, lavender.",
       "ai": "Gardens have long been described as among the most refined of cultivated pleasures, offering restoration that architecture alone cannot provide. Historical essays often argue that a well-planned garden should sustain interest across the full year rather than peak in a single season. Evergreen plantings are typically recommended for the darker months, when deciduous beds have little to show. This approach is still used in contemporary landscape design as a way to maintain structure and color through winter. The broader idea is that outdoor space becomes more valuable when it is composed as a sequence of seasonal rooms rather than a single summer display.",
       "human_source": "Francis Bacon, Of Gardens (1625). Project Gutenberg eBook #575.",
       "ai_model": "local-draft",
-      "tell": "He lists winter greens by name — holly, yew, rosemary — as if ordering a royal inventory."
+      "tell": "He lists winter greens by name \u2014 holly, yew, rosemary \u2014 as if ordering a royal inventory.",
+      "slot": 3,
+      "day_index": 2
     },
     {
       "id": "whitman-broadway",
-      "play_date": "2026-08-25",
+      "play_date": "2026-08-18",
       "topic": "An omnibus up Broadway",
-      "human": "I suppose the Broadway of New York is as much an institution as any in the land. I have been up and down it a great many times, on the tops of the omnibuses, and I think I never fail to get some new impression from it. The crowds, the bright windows, the endless file of stages, the glitter and the noise, the men and women all so intent, and the sense that this tide has been flowing here for years and will flow after we are gone — it is a great study. Sometimes of a fine afternoon I ride the whole length, from the Battery up, just to see the show. The drivers know me, and I know many of them; they are a peculiar and interesting set.",
+      "human": "I suppose the Broadway of New York is as much an institution as any in the land. I have been up and down it a great many times, on the tops of the omnibuses, and I think I never fail to get some new impression from it. The crowds, the bright windows, the endless file of stages, the glitter and the noise, the men and women all so intent, and the sense that this tide has been flowing here for years and will flow after we are gone \u2014 it is a great study. Sometimes of a fine afternoon I ride the whole length, from the Battery up, just to see the show. The drivers know me, and I know many of them; they are a peculiar and interesting set.",
       "ai": "Major commercial avenues function as living institutions, concentrating movement, retail display, and public encounter in a single corridor. Observing such a street from the upper deck of a bus is often described as an effective way to take in both architectural detail and the behavior of crowds. Writers have long treated these routes as symbols of continuity: the traffic predates any one rider and will continue afterward. Relationships with regular drivers can add a human scale to what might otherwise feel anonymous. In this way, a familiar ride becomes a method for reading the city rather than merely crossing it.",
       "human_source": "Walt Whitman, Specimen Days (1882). Project Gutenberg eBook #8813.",
       "ai_model": "local-draft",
-      "tell": "He knows the drivers by sight and rides the whole length just to see the show."
+      "tell": "He knows the drivers by sight and rides the whole length just to see the show.",
+      "slot": 4,
+      "day_index": 3
     },
     {
       "id": "dana-gale",
-      "play_date": "2026-08-26",
+      "play_date": "2026-08-18",
       "topic": "A first gale at sea",
       "human": "A great sea had been knocking about us for some days, and at last a gale came on. I had often heard of a gale of wind, but I had no idea of what it really was. The rain poured down in torrents, and the wind howled through the rigging, and the ship lay over so that the lee rail was under water. We were ordered aloft to furl the topsails, and I shall never forget the first time I went up in a gale. The yard was wet and slippery, and the sail was hard as a board, and slatted about so that it seemed impossible to do anything with it. I clung on with all my might, and did what I was told, and was not a little proud when I got on deck again.",
       "ai": "A first encounter with severe weather at sea is often described as a formative experience for new sailors. High winds, heavy rain, and a steep heel can quickly turn routine sail-handling into a demanding physical task. Climbing aloft under those conditions requires attention to footing, grip, and clear orders from more experienced crew. Many maritime memoirs present the moment of returning to deck as a small rite of passage rather than a technical milestone. The episode is typically used to illustrate how practical knowledge at sea is acquired through exposure, not through description alone.",
       "human_source": "Richard Henry Dana Jr., Two Years Before the Mast (1840). Project Gutenberg eBook #4277.",
       "ai_model": "local-draft",
-      "tell": "The lee rail is under water and the wet yard slats like a board in his hands."
+      "tell": "The lee rail is under water and the wet yard slats like a board in his hands.",
+      "slot": 5,
+      "day_index": 4
     },
     {
       "id": "stevenson-pines",
-      "play_date": "2026-08-27",
+      "play_date": "2026-08-19",
       "topic": "Sleeping under pines",
-      "human": "I was traveling with a donkey through the uplands of the Cévennes, and one night I made my bed under the pines. Night is a dead monotonous period under a roof; but in the open world it passes lightly, with its stars and dews and perfumes, and the hours are marked by changes in the face of Nature. What seems a kind of temporal death to people choked between walls and curtains, is only a light and living slumber to the man who sleeps afield. All night long he can hear Nature breathing deeply and freely; even as she takes her rest she turns and smiles; and there is one stirring hour unknown to those who dwell in houses, when a wakeful influence goes abroad over the sleeping hemisphere, and all the outdoor world are on their feet.",
+      "human": "I was traveling with a donkey through the uplands of the C\u00e9vennes, and one night I made my bed under the pines. Night is a dead monotonous period under a roof; but in the open world it passes lightly, with its stars and dews and perfumes, and the hours are marked by changes in the face of Nature. What seems a kind of temporal death to people choked between walls and curtains, is only a light and living slumber to the man who sleeps afield. All night long he can hear Nature breathing deeply and freely; even as she takes her rest she turns and smiles; and there is one stirring hour unknown to those who dwell in houses, when a wakeful influence goes abroad over the sleeping hemisphere, and all the outdoor world are on their feet.",
       "ai": "Sleeping outdoors is frequently contrasted with indoor rest as a way to recover a closer sense of time and landscape. Travelers in forested uplands often report that hours feel less uniform when they are marked by wind, dew, and changing starlight rather than by walls and clocks. This kind of night is commonly described as lighter and more porous, with periods of waking that still belong to rest. Writers have used the experience to argue that modern shelter, while protective, can flatten the texture of darkness. The suggestion is not that everyone should abandon beds, but that a night in the open can reset attention.",
-      "human_source": "Robert Louis Stevenson, Travels with a Donkey in the Cévennes (1879). Project Gutenberg eBook #535.",
+      "human_source": "Robert Louis Stevenson, Travels with a Donkey in the C\u00e9vennes (1879). Project Gutenberg eBook #535.",
       "ai_model": "local-draft",
-      "tell": "He names the donkey, the Cévennes, and the hour when the outdoor world gets on its feet."
+      "tell": "He names the donkey, the C\u00e9vennes, and the hour when the outdoor world gets on its feet.",
+      "slot": 1,
+      "day_index": 0
     },
     {
       "id": "franklin-type",
-      "play_date": "2026-08-28",
+      "play_date": "2026-08-19",
       "topic": "A composing stick",
       "human": "At the printing-house I was employed in composing, and I soon made myself a tolerable workman. I was very ambitious to be able to work off a sheet in a shorter time than any of the hands, and I practiced at the cases early and late. The compositor stands before the cases of type, and picks up the letters one by one, setting them in a composing-stick held in the left hand. It is close work, and a man must keep his wits about him, or he will have a proof-sheet full of errors. I learned to read the type backward, as it lies in the stick, and to space a line so that it would justify true. There is a pleasure in seeing a page come clean from the press that a man who has not set it cannot know.",
       "ai": "Print shops historically combined manual skill with tight production goals, and apprentices often measured progress by speed and accuracy at the case. Composing type by hand requires picking individual letters, arranging them in a stick, and spacing each line so it justifies evenly. Because the type is read in reverse while it is being set, the work rewards unusual visual attention. Clean proofs are commonly treated as both a quality standard and a source of professional pride. The broader lesson is that physical production can create a form of satisfaction that later, more automated methods do not automatically preserve.",
       "human_source": "Benjamin Franklin, Autobiography (1791). Project Gutenberg eBook #148.",
       "ai_model": "local-draft",
-      "tell": "He learned to read the type backward in the stick and still wants the fastest sheet in the house."
+      "tell": "He learned to read the type backward in the stick and still wants the fastest sheet in the house.",
+      "slot": 2,
+      "day_index": 1
     },
     {
       "id": "jefferies-hedge",
-      "play_date": "2026-08-29",
+      "play_date": "2026-08-19",
       "topic": "A hedge in winter",
-      "human": "The hedge is a world in itself. In winter, when the leaves are gone, you may see the framework of it — the hawthorn stems twisted together, the bramble arches, the hollows where the wrens go in. A man who walks only on the road knows nothing of this. You must get into the ditch, or lean over the gate, and look along the line of the hedge as you would look along a street. Then the fieldfares come, and the redwings, and they strip the hips and haws with a dry rustle. I have stood so still that a hare has come out from the roots at my feet and gone loping up the furrow without seeing me. That is the way to know a hedge: not as a boundary, but as a place.",
-      "ai": "Hedgerows are increasingly recognized as compact habitats rather than simple property lines. In the leafless months their structure becomes easier to read, revealing nested stems, thorn, and sheltered cavities used by small birds. Slow looking — standing off the road, following the hedge as if it were a corridor — is often recommended as a way to notice winter thrushes feeding on remaining fruit. Occasional close encounters with mammals are cited as evidence that stillness changes what the landscape will show. Conservation writing uses this shift in attention to argue that ordinary field edges deserve the same care as more scenic ground.",
+      "human": "The hedge is a world in itself. In winter, when the leaves are gone, you may see the framework of it \u2014 the hawthorn stems twisted together, the bramble arches, the hollows where the wrens go in. A man who walks only on the road knows nothing of this. You must get into the ditch, or lean over the gate, and look along the line of the hedge as you would look along a street. Then the fieldfares come, and the redwings, and they strip the hips and haws with a dry rustle. I have stood so still that a hare has come out from the roots at my feet and gone loping up the furrow without seeing me. That is the way to know a hedge: not as a boundary, but as a place.",
+      "ai": "Hedgerows are increasingly recognized as compact habitats rather than simple property lines. In the leafless months their structure becomes easier to read, revealing nested stems, thorn, and sheltered cavities used by small birds. Slow looking \u2014 standing off the road, following the hedge as if it were a corridor \u2014 is often recommended as a way to notice winter thrushes feeding on remaining fruit. Occasional close encounters with mammals are cited as evidence that stillness changes what the landscape will show. Conservation writing uses this shift in attention to argue that ordinary field edges deserve the same care as more scenic ground.",
       "human_source": "Richard Jefferies, The Amateur Poacher (1879). Project Gutenberg eBook #7233.",
       "ai_model": "local-draft",
-      "tell": "A hare leaves the roots at his feet; he wants the hedge read as a street, not a fence."
+      "tell": "A hare leaves the roots at his feet; he wants the hedge read as a street, not a fence.",
+      "slot": 3,
+      "day_index": 2
     },
     {
       "id": "ruskin-wall",
-      "play_date": "2026-08-30",
+      "play_date": "2026-08-19",
       "topic": "Stones in a wall",
       "human": "I do not know any more pitiful waste of human mind than the reading of architecture without looking at it. You must look at the stones. A wall is not a mere surface; it is a thing built, and the way the stones are laid is the whole secret of its life. If they are of different sizes, and the mason has fitted them with care, the wall will have a look of strength and rest. If they are all one size, and laid like bricks, the wall will look mean, however costly the material. I have seen a cottage wall in the north that was more noble than a palace front in London, because the man who built it had to think for every stone. That thinking remains in the wall after he is dead.",
       "ai": "Architectural appreciation is often stronger when it begins with construction rather than with style labels. Walls communicate a great deal through bond, stone size, and the visible care of the mason. Irregular, well-fitted masonry is frequently described as more vigorous than uniform coursing, even when the latter uses more expensive material. Writers on craft use this contrast to suggest that thought invested during building remains legible long after the builder is gone. The practical implication is that looking closely at ordinary masonry can teach more than a distant survey of famous facades.",
-      "human_source": "John Ruskin, The Stones of Venice (1851–53). Project Gutenberg eBook #30754.",
+      "human_source": "John Ruskin, The Stones of Venice (1851\u201353). Project Gutenberg eBook #30754.",
       "ai_model": "local-draft",
-      "tell": "He prefers a northern cottage wall to a palace front because someone had to think for every stone."
+      "tell": "He prefers a northern cottage wall to a palace front because someone had to think for every stone.",
+      "slot": 4,
+      "day_index": 3
     },
     {
       "id": "morris-craft",
-      "play_date": "2026-08-31",
+      "play_date": "2026-08-19",
       "topic": "Work worth doing",
-      "human": "If you want a golden rule that will fit everybody, this is it: Have nothing in your houses that you do not know to be useful, or believe to be beautiful. And if you cannot make the things yourselves, get them of men who can, and who take pleasure in the making. The lesser arts — the arts of the potter, the weaver, the smith, the joiner — are not lesser because they are small; they are the arts by which we live. When they are degraded into mere manufacture, without thought and without pleasure, the common life is degraded with them. I have said this so often that I am half ashamed to say it again; but I see no other way to make a decent world.",
-      "ai": "Design reformers have long argued that everyday objects should meet a dual test of use and beauty. Supporting skilled makers — potters, weavers, smiths, joiners — is often presented as a way to keep ordinary life from being reduced to anonymous manufacture. The so-called lesser arts are, in this view, central rather than secondary, because they shape the rooms people actually inhabit. When production is stripped of thought and pleasure, the surrounding culture is said to thin out as well. Contemporary craft movements still return to this argument when they talk about sustainable making and more deliberate households.",
+      "human": "If you want a golden rule that will fit everybody, this is it: Have nothing in your houses that you do not know to be useful, or believe to be beautiful. And if you cannot make the things yourselves, get them of men who can, and who take pleasure in the making. The lesser arts \u2014 the arts of the potter, the weaver, the smith, the joiner \u2014 are not lesser because they are small; they are the arts by which we live. When they are degraded into mere manufacture, without thought and without pleasure, the common life is degraded with them. I have said this so often that I am half ashamed to say it again; but I see no other way to make a decent world.",
+      "ai": "Design reformers have long argued that everyday objects should meet a dual test of use and beauty. Supporting skilled makers \u2014 potters, weavers, smiths, joiners \u2014 is often presented as a way to keep ordinary life from being reduced to anonymous manufacture. The so-called lesser arts are, in this view, central rather than secondary, because they shape the rooms people actually inhabit. When production is stripped of thought and pleasure, the surrounding culture is said to thin out as well. Contemporary craft movements still return to this argument when they talk about sustainable making and more deliberate households.",
       "human_source": "William Morris, The Beauty of Life / Hopes and Fears for Art (1882). Project Gutenberg eBook #3773.",
       "ai_model": "local-draft",
-      "tell": "He repeats his golden rule with open irritation, half ashamed to say it again."
+      "tell": "He repeats his golden rule with open irritation, half ashamed to say it again.",
+      "slot": 5,
+      "day_index": 4
     },
     {
       "id": "darwin-forest",
-      "play_date": "2026-09-01",
+      "play_date": "2026-08-20",
       "topic": "A Brazilian forest",
       "human": "The day has passed delightfully. Delight itself, however, is a weak term to express the feelings of a naturalist who, for the first time, has wandered by himself in a Brazilian forest. The elegance of the grasses, the novelty of the parasitical plants, the beauty of the flowers, the glossy green of the foliage, but above all the general luxuriance of the vegetation, filled me with admiration. A most paradoxical mixture of sound and silence pervades the shady parts of the wood. The noise from the insects is so loud, that it may be heard even in a vessel anchored several hundred yards from the shore; yet within the recesses of the forest a universal silence appears to reign. To a person fond of natural history, such a day as this brings with it a deeper pleasure than he can ever hope to experience again.",
       "ai": "First encounters with tropical forest are often described as overwhelming because so many plant forms are unfamiliar at once. Visitors tend to notice layered greenery, flowering detail, and an unusual relationship between noise and quiet: loud insect sound near open water, and a seeming hush deeper in the shade. Accounts like these are still used to explain why field experience can surpass secondhand description for students of natural history. The day becomes a reference point against which later travel is measured. In broader terms, the episode shows how attention, novelty, and habitat complexity combine to produce a lasting sense of significance.",
       "human_source": "Charles Darwin, The Voyage of the Beagle (1839). Project Gutenberg eBook #944.",
       "ai_model": "local-draft",
-      "tell": "He hears insects from a ship offshore and still calls the forest recesses silent."
+      "tell": "He hears insects from a ship offshore and still calls the forest recesses silent.",
+      "slot": 1,
+      "day_index": 0
     },
     {
       "id": "bird-cabin",
-      "play_date": "2026-09-02",
+      "play_date": "2026-08-20",
       "topic": "A mountain cabin",
       "human": "I am now in a log cabin at a height of 7,500 feet, and the snow is drifted against the north wall. The cabin is of unhewn logs, chinked with mud, and the wind finds every crack. I have a pine table, a stool, a stove that smokes, and a bunk filled with hay. At night the coyotes cry along the ridge, and the pines make a sound like the sea. I came here on a horse that stumbled in the snow, and I shall leave when the track is fit. There is no one within several miles. I do not find the solitude dreadful. It is a clean, hard life, and the air is so sharp that it seems to scrape the inside of the lungs. I write this by a candle stuck in a bottle.",
-      "ai": "High-elevation cabins are often portrayed as stripped-down settings that make weather and distance newly legible. Typical details include rough timber, limited furniture, and a heating stove that is only partly successful against drafts. Night sound — wind in conifers, distant animals — is commonly used to stand in for the surrounding emptiness. Travelers sometimes report that this kind of solitude feels clarifying rather than frightening, especially when the air itself seems unusually sharp. The scene is then offered as a reminder that comfort is relative, and that a reduced kit can still support writing, rest, and a planned departure.",
+      "ai": "High-elevation cabins are often portrayed as stripped-down settings that make weather and distance newly legible. Typical details include rough timber, limited furniture, and a heating stove that is only partly successful against drafts. Night sound \u2014 wind in conifers, distant animals \u2014 is commonly used to stand in for the surrounding emptiness. Travelers sometimes report that this kind of solitude feels clarifying rather than frightening, especially when the air itself seems unusually sharp. The scene is then offered as a reminder that comfort is relative, and that a reduced kit can still support writing, rest, and a planned departure.",
       "human_source": "Isabella L. Bird, A Lady's Life in the Rocky Mountains (1879). Project Gutenberg eBook #755.",
       "ai_model": "local-draft",
-      "tell": "She gives the altitude, the hay bunk, and a candle stuck in a bottle."
+      "tell": "She gives the altitude, the hay bunk, and a candle stuck in a bottle.",
+      "slot": 2,
+      "day_index": 1
     },
     {
       "id": "hearn-garden",
-      "play_date": "2026-09-03",
+      "play_date": "2026-08-20",
       "topic": "A rented garden",
       "human": "My little house stands in a garden, and the garden is not mine, yet I have the use of it. There is a stone basin, with water dripping from a bamboo pipe, and a pine that has been bent by old training into the shape of a cloud. The stepping-stones are set not for speed but for the pause between steps. In the morning a woman comes to sweep the moss with a tiny broom, and she does not take up the pine-needles all at once; she leaves a few, as if the tree had just dropped them. I have learned that this is not neglect. It is a way of keeping the garden alive in time, so that it does not look finished and therefore dead.",
       "ai": "Traditional garden design often treats incompleteness as a feature rather than a flaw. Water basins, trained pines, and irregular stepping-stones are arranged to slow movement and to frame small pauses. Maintenance can include leaving a few fallen needles so the scene still appears to be happening. Visitors from elsewhere sometimes misread that choice as untidiness until the underlying aim is explained. The larger idea is that a garden can be kept in a living present, instead of being polished into a final state that no longer changes.",
       "human_source": "Lafcadio Hearn, Glimpses of Unfamiliar Japan (1894). Project Gutenberg eBook #8130.",
       "ai_model": "local-draft",
-      "tell": "The sweeper leaves pine-needles on purpose so the garden does not look finished."
+      "tell": "The sweeper leaves pine-needles on purpose so the garden does not look finished.",
+      "slot": 3,
+      "day_index": 2
     },
     {
       "id": "schumann-piano",
-      "play_date": "2026-09-04",
+      "play_date": "2026-08-20",
       "topic": "An hour at the piano",
       "human": "Play always as if a master were present. Never strum. It is better to rest than to practice without attention. Sit at the instrument as if you meant to stay, with a firm back, and do not waste the first minutes in runs you already know. Take a difficult passage, play it slowly, then more slowly still, until the fingers are no longer surprised. If you play a wrong note, do not make a face; play the passage again. Love your instrument, but do not treat it as a toy. Scales are not a prison; they are the grammar of the hand. When you can play a thing well, play it better. The public will hear the difference, even if you think they will not.",
       "ai": "Effective music practice is generally described as deliberate rather than merely lengthy. Common advice includes beginning with full attention, isolating difficult passages, and reducing tempo until the movement is secure. Visible frustration is discouraged because it interrupts the work without correcting the error. Technical exercises are framed as a grammar that supports later expression, not as a punishment. Teachers often add that a clean scale is useful only when it later disappears into the piece. The implied standard is that careful repetition remains audible in performance, even when an audience cannot name what changed.",
       "human_source": "Robert Schumann, Advice to Young Musicians (1848; English trans. widely reprinted). Project Gutenberg eBook #28219.",
       "ai_model": "local-draft",
-      "tell": "He says play the hard bar more slowly still, and do not make a face at a wrong note."
+      "tell": "He says play the hard bar more slowly still, and do not make a face at a wrong note.",
+      "slot": 4,
+      "day_index": 3
     },
     {
       "id": "mayhew-coffee",
-      "play_date": "2026-09-05",
+      "play_date": "2026-08-20",
       "topic": "A coffee-stall before dawn",
       "human": "The coffee-stalls are set up in the streets before the public-houses are open, and they serve the men who are going to work. The stall is a kind of barrow, with a great tin can of coffee kept hot over a charcoal fire, and a pile of thin bread-and-butter under a cloth. A cup of coffee and a slice cost a penny. The customers stand in the road, blowing the steam off, and eat as they stamp their feet. I have talked with a stall-keeper who has been at the same corner for twelve years, rain or shine, and he knows the faces as a shepherd knows his flock. The first man comes about four, he said, and the last of the early lot is gone by seven, when the shops begin to take the trade.",
       "ai": "Early street food stalls have historically served workers whose day begins before ordinary shops open. A typical setup includes a heated urn, simple bread, and a very low price meant for people eating on their feet. Regular custom can turn a corner into a stable small business, with the keeper recognizing a rotating set of faces. Such stalls occupy a narrow time window and then yield to indoor trade as the morning advances. They are often cited as evidence that cities develop unofficial infrastructure around the clock of labor.",
       "human_source": "Henry Mayhew, London Labour and the London Poor (1851). Project Gutenberg eBook #55998.",
       "ai_model": "local-draft",
-      "tell": "A penny buys the cup, and the same man has held the corner for twelve years."
+      "tell": "A penny buys the cup, and the same man has held the corner for twelve years.",
+      "slot": 5,
+      "day_index": 4
     },
     {
       "id": "gissing-books",
-      "play_date": "2026-09-06",
+      "play_date": "2026-08-21",
       "topic": "A room of books",
       "human": "I have a room of my own, and the walls are lined with books. They are not a show; they are the tools I have used and the friends I have kept. On a wet afternoon I take one down that I have read three times, and I do not open it at the beginning. I open it where the leaf is darker, or where a blade of grass still lies, and I read a page as one tastes a thing already known. There is no virtue in owning books that one will never open. The virtue is in the marked page, the remembered argument, the sentence that has worked in the mind for years. A stranger coming in would think the room poor. I think it is the only rich room I have ever had.",
-      "ai": "Personal libraries are often described less as display and more as a working collection of reread books. Returning to a familiar volume midstream — guided by wear, a mark, or a saved scrap — is a common way readers continue an older conversation with a text. Ownership without use is generally treated as empty, while annotation and memory are treated as the real accumulation. Visitors may misjudge such a room as sparse because the value is not decorative. The underlying claim is that rereading can be a form of wealth that does not depend on novelty.",
+      "ai": "Personal libraries are often described less as display and more as a working collection of reread books. Returning to a familiar volume midstream \u2014 guided by wear, a mark, or a saved scrap \u2014 is a common way readers continue an older conversation with a text. Ownership without use is generally treated as empty, while annotation and memory are treated as the real accumulation. Visitors may misjudge such a room as sparse because the value is not decorative. The underlying claim is that rereading can be a form of wealth that does not depend on novelty.",
       "human_source": "George Gissing, The Private Papers of Henry Ryecroft (1903). Project Gutenberg eBook #1463.",
       "ai_model": "local-draft",
-      "tell": "He opens the book where the leaf is darker, or where a blade of grass still lies."
+      "tell": "He opens the book where the leaf is darker, or where a blade of grass still lies.",
+      "slot": 1,
+      "day_index": 0
     },
     {
       "id": "conrad-sea",
-      "play_date": "2026-09-07",
+      "play_date": "2026-08-21",
       "topic": "The face of the sea",
       "human": "The sea has never been friendly to man. At most it has been the accomplice of human restlessness. The sea is a great mystery, but it is not a sentimental mystery. It is a hard and fickle thing, and the men who live on it know its face as a farmer knows his fields. There are days when it lies like a sheet of metal, and days when it rises up and tries to shake the ship out of its hold on life. I have stood a watch in both, and I do not prefer the calm. The calm is a kind of deceit. The storm at least is honest; it comes on, and you do your work, and if you are lucky you come through with the same ship and the same men.",
       "ai": "Maritime writing often resists romantic language in favor of a more severe account of open water. The sea is treated as an environment with moods that skilled crews learn to read, comparable to the way land workers read weather and soil. Calm conditions can be described as deceptive, while storms, though dangerous, at least present a clear demand for work. This framing is used to explain why some sailors distrust stillness more than noise. It also offers a broader comment on restlessness: the ocean enables movement, but it does not owe anyone safety or meaning.",
       "human_source": "Joseph Conrad, The Mirror of the Sea (1906). Project Gutenberg eBook #1058.",
       "ai_model": "local-draft",
-      "tell": "He would rather have the honest storm than a calm he calls a deceit."
+      "tell": "He would rather have the honest storm than a calm he calls a deceit.",
+      "slot": 2,
+      "day_index": 1
     },
     {
       "id": "cather-prairie",
-      "play_date": "2026-09-08",
+      "play_date": "2026-08-21",
       "topic": "The first prairie",
-      "human": "There was nothing but land: not a country at all, but the material out of which countries are made. No, there was nothing but land — slightly undulating, I knew, because often our wheels ground against the brake as we went down into a hollow and lurched up again on the other side. I had the feeling that the world was left behind, that we had got over the edge of it, and were outside man's jurisdiction. I had never before looked up at the sky when there was not a familiar mountain ridge against it. But this was the complete dome of heaven, all there was of it. I did not say to myself, 'This is new to me.' I felt that the grass was the country, as the water is the sea.",
+      "human": "There was nothing but land: not a country at all, but the material out of which countries are made. No, there was nothing but land \u2014 slightly undulating, I knew, because often our wheels ground against the brake as we went down into a hollow and lurched up again on the other side. I had the feeling that the world was left behind, that we had got over the edge of it, and were outside man's jurisdiction. I had never before looked up at the sky when there was not a familiar mountain ridge against it. But this was the complete dome of heaven, all there was of it. I did not say to myself, 'This is new to me.' I felt that the grass was the country, as the water is the sea.",
       "ai": "Open grassland is often described as unfinished space rather than as a completed country, especially when first seen from a wagon or train. The absence of familiar ridges can make the sky feel newly complete, a full dome instead of a backdrop. Travelers report a sensation of having crossed some edge of ordinary jurisdiction into a simpler arrangement of ground and air. Writers use that feeling to explain how a landscape can reorganize a person's sense of scale. The grass itself becomes the main fact, the way water is the main fact at sea.",
-      "human_source": "Willa Cather, My Ántonia (1918). Project Gutenberg eBook #242.",
+      "human_source": "Willa Cather, My \u00c1ntonia (1918). Project Gutenberg eBook #242.",
       "ai_model": "local-draft",
-      "tell": "The wagon brake scrapes in a hollow, and the grass becomes the country the way water is the sea."
+      "tell": "The wagon brake scrapes in a hollow, and the grass becomes the country the way water is the sea.",
+      "slot": 3,
+      "day_index": 2
     },
     {
       "id": "hudson-wind",
-      "play_date": "2026-09-09",
+      "play_date": "2026-08-21",
       "topic": "A dry wind",
       "human": "The wind in that country is not a weather; it is the country. It comes off the desert for days together, dry as dust, and it searches every crack in the house and every thought in the head. You cannot talk against it; you only wait. The horses stand with their tails to it, and the dogs lie flat under the kitchen. I have walked out in it until my lips cracked and the insides of my eyelids felt like paper. And yet, when it drops, the silence is so sudden that you hear the fire in the stove as if it were a furnace. People who have not lived with such a wind think of wind as a passing thing. They are mistaken.",
       "ai": "In arid regions, persistent wind can function less as passing weather than as a standing condition of daily life. It affects animals, conversation, household dust, and even the texture of thought. Residents often describe waiting it out rather than working against it, then noticing an almost shocking quiet when it finally drops. Visitors, by contrast, tend to treat wind as an episode. The difference is used to explain why certain landscapes train a different sense of duration, in which a storm is not an event but a climate.",
       "human_source": "W. H. Hudson, Idle Days in Patagonia (1893). Project Gutenberg eBook #7310.",
       "ai_model": "local-draft",
-      "tell": "When the wind drops he hears the stove like a furnace; his eyelids have felt like paper."
+      "tell": "When the wind drops he hears the stove like a furnace; his eyelids have felt like paper.",
+      "slot": 4,
+      "day_index": 3
     },
     {
       "id": "parkman-trail",
-      "play_date": "2026-09-10",
+      "play_date": "2026-08-21",
       "topic": "A day on the trail",
       "human": "We were off before sunrise. The prairie was still gray, and the grass was wet enough to soak a man to the knee. Our mules packed badly at first, and one of them lay down with a groan that was almost human. The country was a succession of low swells, with nothing to rest the eye except a distant line of timber along a creek. By ten o'clock the sun was hard, and the dust rose from the track in a fine white powder that settled on the lips. We halted at noon by a slough, where the water was warm and tasted of the soil. I do not think I have ever been so hungry for shade. There was none. We went on.",
       "ai": "Overland travel on open grassland is often summarized as a sequence of early starts, awkward pack animals, and long visual emptiness broken only by distant timber. Heat and dust tend to define the middle of the day, while water stops can be unsatisfying and warm. Shade becomes a kind of hunger when the land offers none. These conditions are repeatedly used to explain both the monotony and the severity of trail life. The day is less a scenic journey than a management problem: animals, water, dust, and the next swell.",
       "human_source": "Francis Parkman, The Oregon Trail (1849). Project Gutenberg eBook #1015.",
       "ai_model": "local-draft",
-      "tell": "A mule lies down with a groan, and noon water in the slough tastes of the soil."
+      "tell": "A mule lies down with a groan, and noon water in the slough tastes of the soil.",
+      "slot": 5,
+      "day_index": 4
     },
     {
       "id": "jefferson-bridge",
-      "play_date": "2026-09-11",
+      "play_date": "2026-08-22",
       "topic": "A natural bridge",
       "human": "The Natural Bridge, the most sublime of Nature's works, is on the ascent of a hill, which seems to have been cloven through its length by some great convulsion. The fissure, just at the bridge, is, by some admeasurements, 270 feet deep, by others only 205. It is about 45 feet wide at the bottom, and 90 feet at the top. The following is the approximate measure. The arch approaches the Semi-elliptical form; but the larger axis of the ellipsis, which would be the cord of the arch, is many times longer than the transverse. Though the sides of this bridge are provided in some parts with a parapet of fixed rocks, yet few men have resolution to walk to them and look over into the abyss.",
       "ai": "Natural rock arches are often presented as landscapes that combine measurable structure with a strong emotional effect. Descriptions typically include estimated height and width, the shape of the span, and the uneasy experience of approaching the edge. Disagreement among measurements is not treated as a failure so much as evidence that the place resists casual precision. The scene is then used to talk about the difference between knowing a dimension and consenting to stand over it. In that gap, measurement and awe remain in the same paragraph without canceling each other.",
       "human_source": "Thomas Jefferson, Notes on the State of Virginia (1785). Project Gutenberg eBook #227.",
       "ai_model": "local-draft",
-      "tell": "He argues with the depth figures, then admits few men will walk out and look over."
+      "tell": "He argues with the depth figures, then admits few men will walk out and look over.",
+      "slot": 1,
+      "day_index": 0
     },
     {
       "id": "white-frost",
-      "play_date": "2026-09-12",
+      "play_date": "2026-08-22",
       "topic": "A hard frost",
       "human": "We have had a severe frost. The ponds are frozen hard enough to bear a man, and the ruts in the roads are solid as iron. I went out before the sun was up, and the fields were all one white, with every bent of grass cased in ice. The rooks went over toward the stubbles with a sound as if their wings were stiff. In the garden the cabbage leaves broke in my hand like glass. Such mornings make a man careful of his steps, and they send him in again thinking of the wood-pile. I have noticed that after a frost of this kind the air is so still that you may hear a wagon on the London road, though it is two miles off.",
       "ai": "Severe frost changes both movement and sound in a rural landscape. Frozen ponds, hardened ruts, and ice-coated grass are typical signs, along with vegetation that becomes brittle enough to break. Birds may sound labored in the cold air, and households turn attention to fuel. Unusual carrying of distant noise is often mentioned as a side effect of still, dense morning air. These details are used to show winter not as an abstraction but as a set of practical constraints on walking, hearing, and staying warm.",
       "human_source": "Gilbert White, The Natural History of Selborne (1789). Project Gutenberg eBook #1408.",
       "ai_model": "local-draft",
-      "tell": "Cabbage leaves break like glass, and a wagon two miles off is suddenly audible."
+      "tell": "Cabbage leaves break like glass, and a wagon two miles off is suddenly audible.",
+      "slot": 2,
+      "day_index": 1
     },
     {
       "id": "thoreau-pond",
-      "play_date": "2026-09-13",
+      "play_date": "2026-08-22",
       "topic": "The pond in winter",
-      "human": "After a still winter night I awoke with the impression that some question had been put to me, which I had been endeavoring in vain to answer in my sleep, as what — how — when — where? But there was dawning Nature, in whom all creatures live, looking in at my broad windows with serene and satisfied face, and no question on her lips. I awoke to an answered question, to Nature and daylight. The snow lying deep on the earth dotted with young pines, and the very slope of the hill on which my house is placed, seemed to say, Forward! Nature puts no question and answers none which we mortals ask. She has long ago taken her resolution.",
+      "human": "After a still winter night I awoke with the impression that some question had been put to me, which I had been endeavoring in vain to answer in my sleep, as what \u2014 how \u2014 when \u2014 where? But there was dawning Nature, in whom all creatures live, looking in at my broad windows with serene and satisfied face, and no question on her lips. I awoke to an answered question, to Nature and daylight. The snow lying deep on the earth dotted with young pines, and the very slope of the hill on which my house is placed, seemed to say, Forward! Nature puts no question and answers none which we mortals ask. She has long ago taken her resolution.",
       "ai": "Winter mornings are often used in reflective writing as a moment when private questions meet an indifferent, finished landscape. Snow, young evergreens, and the simple fact of daylight can make human uncertainty feel temporarily beside the point. The surrounding world is described as already decided, already in motion, without a need to explain itself. Readers are invited to treat that calm not as a riddle but as a kind of answer. The scene therefore works less as weather report than as a reset of attention after a night of unused thought.",
       "human_source": "Henry David Thoreau, Walden (1854), 'The Pond in Winter.' Project Gutenberg eBook #205.",
       "ai_model": "local-draft",
-      "tell": "He wakes with a leftover question and finds the snowed hill already saying Forward."
+      "tell": "He wakes with a leftover question and finds the snowed hill already saying Forward.",
+      "slot": 3,
+      "day_index": 2
     },
     {
       "id": "irving-hearth",
-      "play_date": "2026-09-14",
+      "play_date": "2026-08-22",
       "topic": "A Christmas hearth",
       "human": "The dinner was served up in the great hall, where the Squire always held his Christmas banquet. A blazing crackling fire of logs had been heaped on to warm the spacious apartment, and the flame went sparkling and wreathing up the wide-mouthed chimney. The great picture of the crusader and his white horse had been profusely decorated with greens for the occasion, and holly and ivy had likewise been wreathed round the helmet and weapons on the opposite wall. I was still enjoying the scene, when a servant came in and announced that the stage-coach had arrived. The Squire hurried out to welcome his guests, and I followed, curious to see how the old gentleman would receive his visitors in this his yearly outburst of hospitality.",
-      "ai": "Traditional winter gatherings are often staged around a large shared fire and a room dressed with evergreens. Historic halls add armor, portraits, and a sense that the household is performing a once-a-year version of itself. The arrival of a coach then turns decoration into hospitality, as the host goes out to meet travelers. Accounts like this are used to explain how a seasonal meal can function as both private comfort and public ritual. The emphasis falls on reception — fire, greens, and the doorway — more than on the menu.",
-      "human_source": "Washington Irving, The Sketch Book of Geoffrey Crayon, Gent. (1819–20), 'Christmas Day.' Project Gutenberg eBook #2048.",
+      "ai": "Traditional winter gatherings are often staged around a large shared fire and a room dressed with evergreens. Historic halls add armor, portraits, and a sense that the household is performing a once-a-year version of itself. The arrival of a coach then turns decoration into hospitality, as the host goes out to meet travelers. Accounts like this are used to explain how a seasonal meal can function as both private comfort and public ritual. The emphasis falls on reception \u2014 fire, greens, and the doorway \u2014 more than on the menu.",
+      "human_source": "Washington Irving, The Sketch Book of Geoffrey Crayon, Gent. (1819\u201320), 'Christmas Day.' Project Gutenberg eBook #2048.",
       "ai_model": "local-draft",
-      "tell": "Holly is wreathed on the crusader's helmet just as the stage-coach is announced."
+      "tell": "Holly is wreathed on the crusader's helmet just as the stage-coach is announced.",
+      "slot": 4,
+      "day_index": 3
     },
     {
       "id": "faraday-candle",
-      "play_date": "2026-09-15",
+      "play_date": "2026-08-22",
       "topic": "A candle flame",
       "human": "There is no better, there is no more open door by which you can enter into the study of natural philosophy than by considering the physical phenomena of a candle. There is not a law under which any part of this universe is governed which does not come into play and is touched upon in these phenomena. I trust, therefore, I shall not disappoint you in choosing this for my subject rather than any newer topic, which could not be better, were it even so good. And before proceeding, let me say this also: that though our subject be so great, and our intention that of treating it honestly, seriously, and philosophically, yet I mean to pass away from all those who are seniors amongst us. I claim the privilege of speaking to juveniles as a juvenile myself.",
       "ai": "Introductory science talks often begin with an ordinary object in order to reach general physical laws without specialized apparatus. A candle is a frequent choice because combustion, convection, light, and phase change are all visible in one small flame. The pedagogical claim is that a familiar example can open a larger field more honestly than a fashionable novelty. Speakers may also address younger listeners directly, treating seriousness and accessibility as compatible. The result is a model of public explanation: start with something already on the table, then show that the whole room of physics touches it.",
       "human_source": "Michael Faraday, The Chemical History of a Candle (1861). Project Gutenberg eBook #14474.",
       "ai_model": "local-draft",
-      "tell": "He calls the candle an open door into natural philosophy and then claims the privilege of speaking as a juvenile."
+      "tell": "He calls the candle an open door into natural philosophy and then claims the privilege of speaking as a juvenile.",
+      "slot": 5,
+      "day_index": 4
     }
   ]
 }

@@ -8,9 +8,9 @@ describe("rate limits", () => {
     const { app } = makeApp();
     const ip = "9.9.9.9";
     for (let i = 0; i < CLAIM_LIMIT; i++) {
-      await app.claim(session(`s-${i}`), `user_${i}`, ip);
+      await app.claim({ id: `s-${i}`, playerId: null }, `user_${i}`, "ink-0", ip);
     }
-    await expect(app.claim(session("overflow"), "user_x", ip)).rejects.toMatchObject({
+    await expect(app.claim(session("overflow"), "user_x", "ink-1", ip)).rejects.toMatchObject({
       status: 429,
       code: "rate_limited",
     } satisfies Partial<AppError>);
@@ -20,12 +20,15 @@ describe("rate limits", () => {
     const rates = new MemoryRateStore();
     const { app } = makeApp({ ipStore: rates });
     const ip = "8.8.8.8";
+    const claimed = await app.claim(session(), "flooder", "ink-2", "1.2.3.4");
     const now = Date.now();
     for (let i = 0; i < GUESS_LIMIT; i++) {
       const ok = await consume(rates, `rl:guess:${ip}`, GUESS_LIMIT, now);
       expect(ok.ok).toBe(true);
     }
-    await expect(app.guess(session(), "left", ip)).rejects.toMatchObject({
+    const first = await app.next(claimed.session);
+    if (!("id" in first)) throw new Error("expected a pair");
+    await expect(app.guess(claimed.session, first.id, "left", ip)).rejects.toMatchObject({
       status: 429,
     } satisfies Partial<AppError>);
   });

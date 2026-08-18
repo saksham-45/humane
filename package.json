@@ -3,8 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "npm run build:client && wrangler dev",
-    "build:client": "esbuild src/client/app.ts --bundle --minify --outfile=public/js/app.js --target=es2022",
+    "dev": "wrangler dev",
     "test": "npm run validate:pairs && vitest run",
     "validate:pairs": "node scripts/validate-pairs.mjs",
     "typecheck": "tsc --noEmit",
@@ -12,7 +11,6 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "4.20250813.0",
-    "esbuild": "^0.25.9",
     "typescript": "^5.9.2",
     "vitest": "^3.2.4",
     "wrangler": "4.28.1"

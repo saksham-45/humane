@@ -1,3 +1,2 @@
-# Copy to .dev.vars for local overrides. Not required.
+# Copy to .dev.vars for local wrangler.
 SESSION_SECRET=local-dev-session-secret-not-for-prod
-PUBLIC_ORIGIN=http://127.0.0.1:8787

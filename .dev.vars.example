@@ -1,0 +1,2 @@
+# Copy to .dev.vars for local wrangler.
+SESSION_SECRET=local-dev-session-secret-not-for-prod

@@ -7,7 +7,7 @@
     <meta name="description" content="Five pairs a day. Pick the human." />
     <meta name="theme-color" content="#124DA5" />
     <link rel="icon" href="/img/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="/css/app.css?v=ready-1" />
+    <link rel="stylesheet" href="/css/app.css?v=name-3" />
   </head>
   <body class="door">
     <div class="floor">
@@ -26,8 +26,8 @@
         <div class="booth">
           <form id="door-form" class="door-form">
             <div class="namelang">
-              <label class="sr" for="username">enter your name</label>
-              <input id="username" name="username" type="text" maxlength="16" autocomplete="username" spellcheck="false" placeholder="enter your name" />
+              <label class="sr" for="username">enter your name (at least 3 characters)</label>
+              <input id="username" name="username" type="text" maxlength="16" autocomplete="username" spellcheck="false" placeholder="enter your name (at least 3 characters)" />
               <label class="sr" for="lang">language</label>
               <select id="lang" name="lang" aria-label="language">
                 <option value="en" selected>English</option>
@@ -63,11 +63,11 @@
       (function () {
         var FACE_COOKIE = "humane_face";
         var COPY = {
-          en: { ph: "enter your name", play: "Play!", board: "Board", bad: "3–16 letters, numbers, underscore.", taken: "That name is taken.", net: "Could not reach the table. Try again." },
-          es: { ph: "escribe tu nombre", play: "¡Jugar!", board: "Tabla", bad: "3–16 letras, números o _.", taken: "Ese nombre está tomado.", net: "No se pudo llegar a la mesa." },
-          hi: { ph: "अपना नाम लिखें", play: "खेलो!", board: "बोर्ड", bad: "3–16 अक्षर, अंक या _.", taken: "यह नाम लिया जा चुका है।", net: "टेबल तक नहीं पहुँच सके।" },
-          pt: { ph: "escreve o teu nome", play: "Jogar!", board: "Placar", bad: "3–16 letras, números ou _.", taken: "Esse nome já foi usado.", net: "Não deu para chegar à mesa." },
-          fr: { ph: "entre ton nom", play: "Jouer !", board: "Tableau", bad: "3–16 lettres, chiffres ou _.", taken: "Ce nom est pris.", net: "Impossible de joindre la table." }
+          en: { ph: "enter your name (at least 3 characters)", play: "Play!", board: "Board", bad: "3–16 letters, numbers, underscore.", taken: "That name is taken.", net: "Could not reach the table. Try again." },
+          es: { ph: "escribe tu nombre (mínimo 3 caracteres)", play: "¡Jugar!", board: "Tabla", bad: "3–16 letras, números o _.", taken: "Ese nombre está tomado.", net: "No se pudo llegar a la mesa." },
+          hi: { ph: "अपना नाम लिखें (कम से कम 3 अक्षर)", play: "खेलो!", board: "बोर्ड", bad: "3–16 अक्षर, अंक या _.", taken: "यह नाम लिया जा चुका है।", net: "टेबल तक नहीं पहुँच सके।" },
+          pt: { ph: "escreve o teu nome (pelo menos 3 caracteres)", play: "Jogar!", board: "Placar", bad: "3–16 letras, números ou _.", taken: "Esse nome já foi usado.", net: "Não deu para chegar à mesa." },
+          fr: { ph: "entre ton nom (au moins 3 caractères)", play: "Jouer !", board: "Tableau", bad: "3–16 lettres, chiffres ou _.", taken: "Ce nom est pris.", net: "Impossible de joindre la table." }
         };
         var faces = [];
         for (var i = 0; i < 12; i++) faces.push("ink-" + i);

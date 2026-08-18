@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>HUMANE</title>
-    <link rel="stylesheet" href="/css/app.css" />
+    <link rel="stylesheet" href="/css/app.css?v=skribbl-door" />
   </head>
   <body class="door">
     <div class="floor">
@@ -22,14 +22,20 @@
                 <option selected>English</option>
               </select>
             </div>
-            <div class="picker">
-              <button type="button" class="arrow up l" id="prev-up" aria-label="Previous face">▲</button>
-              <button type="button" class="arrow dn l" id="prev-dn" aria-label="Previous face">▼</button>
+            <div class="well">
+              <div class="hits left">
+                <button type="button" class="hit" id="l0" aria-label="Face up">▲</button>
+                <button type="button" class="hit" id="l1" aria-label="Face mid">▲</button>
+                <button type="button" class="hit" id="l2" aria-label="Face down">▼</button>
+              </div>
               <button type="button" class="face-hit" id="face-hit" aria-label="Avatar">
                 <img id="face-img" width="96" height="96" alt="" />
               </button>
-              <button type="button" class="arrow up r" id="next-up" aria-label="Next face">▲</button>
-              <button type="button" class="arrow dn r" id="next-dn" aria-label="Next face">▼</button>
+              <div class="hits right">
+                <button type="button" class="hit" id="r0" aria-label="Next up">▲</button>
+                <button type="button" class="hit" id="r1" aria-label="Next mid">▲</button>
+                <button type="button" class="hit" id="r2" aria-label="Next down">▼</button>
+              </div>
               <button type="button" class="shuffle" id="shuffle" aria-label="Shuffle">↻</button>
             </div>
             <input type="hidden" id="avatar" name="avatar" value="ink-0" />
@@ -50,15 +56,9 @@
         var faceImg = document.getElementById("face-img");
         var form = document.getElementById("door-form");
 
-        function src(id) {
-          return "/avatars/" + id + ".svg";
-        }
-        function fallback(id) {
-          return "/img/" + id + ".svg";
-        }
-        function valid(name) {
-          return /^[a-z0-9_]{3,16}$/i.test(name.trim());
-        }
+        function src(id) { return "/avatars/" + id + ".svg"; }
+        function fallback(id) { return "/img/" + id + ".svg"; }
+        function valid(name) { return /^[a-z0-9_]{3,16}$/i.test(name.trim()); }
         function paint() {
           var id = faces[idx];
           hidden.value = id;
@@ -68,9 +68,7 @@
           };
           faceImg.src = src(id);
         }
-        function syncPlay() {
-          play.disabled = !valid(input.value);
-        }
+        function syncPlay() { play.disabled = !valid(input.value); }
         function shake() {
           input.classList.remove("shake");
           void input.offsetWidth;
@@ -80,10 +78,12 @@
           idx = (idx + d + 12) % 12;
           paint();
         }
-        document.getElementById("prev-up").addEventListener("click", function () { step(-1); });
-        document.getElementById("prev-dn").addEventListener("click", function () { step(-1); });
-        document.getElementById("next-up").addEventListener("click", function () { step(1); });
-        document.getElementById("next-dn").addEventListener("click", function () { step(1); });
+        ["l0", "l1", "l2"].forEach(function (id) {
+          document.getElementById(id).addEventListener("click", function () { step(-1); });
+        });
+        ["r0", "r1", "r2"].forEach(function (id) {
+          document.getElementById(id).addEventListener("click", function () { step(1); });
+        });
         document.getElementById("shuffle").addEventListener("click", function () {
           idx = Math.floor(Math.random() * 12);
           paint();
@@ -96,10 +96,7 @@
         input.addEventListener("input", syncPlay);
         form.addEventListener("submit", function (ev) {
           ev.preventDefault();
-          if (!valid(input.value)) {
-            shake();
-            return;
-          }
+          if (!valid(input.value)) { shake(); return; }
           play.disabled = true;
           fetch("/api/claim", {
             method: "POST",

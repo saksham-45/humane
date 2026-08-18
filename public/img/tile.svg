@@ -1,34 +1,50 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" shape-rendering="crispEdges">
-  <rect width="96" height="96" fill="#124DA5"/>
-  <!-- pencil -->
-  <rect x="8" y="10" width="3" height="14" fill="#0B3A82"/>
-  <rect x="8" y="24" width="3" height="3" fill="#0A326F"/>
-  <!-- open book -->
-  <rect x="28" y="8" width="7" height="5" fill="#0B3A82"/>
-  <rect x="36" y="8" width="7" height="5" fill="#0A326F"/>
-  <!-- cup -->
-  <rect x="62" y="12" width="8" height="7" fill="#0B3A82"/>
-  <rect x="70" y="14" width="3" height="3" fill="#0A326F"/>
-  <!-- star -->
-  <rect x="80" y="36" width="3" height="3" fill="#0B3A82"/>
-  <rect x="77" y="39" width="9" height="3" fill="#0B3A82"/>
-  <rect x="80" y="42" width="3" height="3" fill="#0B3A82"/>
-  <!-- paper -->
-  <rect x="12" y="44" width="10" height="12" fill="#0B3A82"/>
-  <rect x="14" y="47" width="6" height="2" fill="#0A326F"/>
-  <rect x="14" y="51" width="6" height="2" fill="#0A326F"/>
-  <!-- scissors -->
-  <rect x="48" y="40" width="2" height="10" fill="#0B3A82"/>
-  <rect x="46" y="48" width="6" height="2" fill="#0B3A82"/>
-  <!-- ink pot -->
-  <rect x="70" y="58" width="8" height="8" fill="#0B3A82"/>
-  <rect x="72" y="54" width="4" height="4" fill="#0A326F"/>
-  <!-- stamp -->
-  <rect x="20" y="72" width="10" height="8" fill="#0B3A82"/>
-  <rect x="22" y="74" width="6" height="4" fill="#0A326F"/>
-  <!-- dash marks -->
-  <rect x="50" y="70" width="8" height="2" fill="#0B3A82"/>
-  <rect x="52" y="74" width="8" height="2" fill="#0A326F"/>
-  <rect x="84" y="78" width="4" height="4" fill="#0B3A82"/>
-  <rect x="4" y="84" width="4" height="4" fill="#0A326F"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="350" height="350" viewBox="0 0 350 350" shape-rendering="crispEdges">
+  <rect width="350" height="350" fill="#124DA5"/>
+  <g fill="#0B3A82">
+    <rect x="18" y="22" width="6" height="28"/>
+    <rect x="16" y="50" width="10" height="6"/>
+    <rect x="72" y="18" width="22" height="14"/>
+    <rect x="84" y="18" width="2" height="14" fill="#0A326F"/>
+    <rect x="140" y="30" width="16" height="12"/>
+    <rect x="156" y="34" width="6" height="6"/>
+    <rect x="210" y="16" width="8" height="8"/>
+    <rect x="204" y="24" width="20" height="6"/>
+    <rect x="210" y="30" width="8" height="8"/>
+    <rect x="280" y="28" width="18" height="22"/>
+    <rect x="284" y="32" width="10" height="4" fill="#0A326F"/>
+    <rect x="284" y="40" width="10" height="4" fill="#0A326F"/>
+    <rect x="40" y="90" width="20" height="16"/>
+    <rect x="48" y="84" width="4" height="8"/>
+    <rect x="110" y="100" width="4" height="20"/>
+    <rect x="106" y="116" width="12" height="4"/>
+    <rect x="180" y="88" width="14" height="14"/>
+    <rect x="240" y="96" width="24" height="6"/>
+    <rect x="246" y="90" width="12" height="18"/>
+    <rect x="310" y="80" width="16" height="16"/>
+    <rect x="22" y="170" width="12" height="16"/>
+    <rect x="80" y="160" width="28" height="8"/>
+    <rect x="86" y="168" width="16" height="6"/>
+    <rect x="150" y="176" width="8" height="8"/>
+    <rect x="144" y="184" width="20" height="6"/>
+    <rect x="150" y="190" width="8" height="8"/>
+    <rect x="220" y="168" width="20" height="14"/>
+    <rect x="226" y="172" width="8" height="3" fill="#0A326F"/>
+    <rect x="290" y="180" width="6" height="22"/>
+    <rect x="286" y="196" width="14" height="6"/>
+    <rect x="30" y="250" width="16" height="12"/>
+    <rect x="96" y="240" width="10" height="24"/>
+    <rect x="92" y="262" width="18" height="6"/>
+    <rect x="160" y="248" width="22" height="16"/>
+    <rect x="166" y="252" width="10" height="4" fill="#0A326F"/>
+    <rect x="230" y="256" width="8" height="8"/>
+    <rect x="224" y="264" width="20" height="6"/>
+    <rect x="230" y="270" width="8" height="8"/>
+    <rect x="300" y="244" width="18" height="10"/>
+    <rect x="18" y="310" width="24" height="6"/>
+    <rect x="70" y="318" width="8" height="16"/>
+    <rect x="130" y="308" width="14" height="18"/>
+    <rect x="200" y="320" width="20" height="8"/>
+    <rect x="270" y="300" width="12" height="20"/>
+    <rect x="320" y="316" width="10" height="10"/>
+  </g>
 </svg>
